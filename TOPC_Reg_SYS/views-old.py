@@ -12,7 +12,6 @@ from django.utils import timezone
 from datetime import datetime
 from django.db.models.functions import Now
 
-
 from TOPC_Reg_SYS.models import ALLStudents, RegStudents
 
 
@@ -20,9 +19,10 @@ from TOPC_Reg_SYS.models import ALLStudents, RegStudents
 def home(request):
     if request.method == "GET":
         if request.user.is_authenticated:
-            return render(request,'user_home.html')
+            return render(request, 'user_home.html')
         else:
-            return render(request,'home.html')
+            return render(request, 'home.html')
+
 
 def login(request):
     if request.method == "GET":
@@ -32,18 +32,15 @@ def login(request):
             return render(request, "login.html")
     elif request.method == "POST":
 
-
         system_messages = messages.get_messages(request)
         for message in system_messages:
             # This iteration is necessary
             pass
         system_messages.used = True
 
-
         username = request.POST["u_name"]
         password = request.POST["password"]
-        if username=="" or password =="":
-
+        if username == "" or password == "":
             messages.error(request, "Username and Password can't be empty")
             return redirect("login")
 
@@ -61,6 +58,7 @@ def login(request):
             messages.error(request, "Problem with Username and Password")
             return redirect("login")
 
+
 def user_logout(request):
     # return HttpResponse("Kita hoise??")
     logout(request)
@@ -68,7 +66,6 @@ def user_logout(request):
 
 
 def ush(request):
-
     if request.user.is_authenticated:
         level = 0
         stdcount = RegStudents.objects.all().count()
@@ -79,15 +76,15 @@ def ush(request):
         else:
             level = 1
         if request.method == "GET":
-            context = {'level':level,'stdcount':stdcount}
-            return render(request, "user_home.html",context)
+            context = {'level': level, 'stdcount': stdcount}
+            return render(request, "user_home.html", context)
         elif request.method == "POST":
             sID = request.POST['search']
-            if sID =='%':
+            if sID == '%':
                 obj = ALLStudents.objects.all()
-                context = {'level': level,'stdcount':stdcount,'ALLstudents':obj}
+                context = {'level': level, 'stdcount': stdcount, 'ALLstudents': obj}
                 return render(request, "user_home.html", context)
-            elif sID!="":
+            elif sID != "":
                 std = ALLStudents.objects.filter(Q(sID__contains=sID) | Q(name__contains=sID))
 
                 if std:
@@ -104,7 +101,9 @@ def ush(request):
             # This iteration is necessary
             pass
         system_messages.used = True
-        messages.error(request,"Please Login First")
+        messages.error(request, "Please Login First")
         return redirect("login")
 
 
+def std_reg(request):
+    return render(request, 'std-reg.html')
