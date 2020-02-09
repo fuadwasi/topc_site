@@ -21,63 +21,105 @@
     </div>
     <div class="navbar-collapse collapse" id="collapsingNavbar">
 
-       <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto">
 
 
-            <li class="nav-item">
-                <a class="nav-link" href={% url "home" %}>Home <span class="sr-only">Home</span></a>
-            </li>
-
-
-            <li class="nav-item active">
-                <a class="nav-link" href={% url "all_std" %}>All Students List</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href={% url "upload" %}>Upload Data</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href={% url "users" %}>Admin List</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href={% url "signup" %}>Admin Registration</a>
-            </li>
-
-
-
-            <li class="nav-item ">
-                <a class="nav-link" href={% url "home" %}>Hello {{user}}</a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="/logout/">Logout</a>
-            </li>
+            {#            <li class="nav-item">#}
+            {#                <a class="nav-link" href={% url "home" %}>Home <span class="sr-only">Home</span></a>#}
+            {#            </li>#}
+            {##}
+            {##}
+            {#            <li class="nav-item active">#}
+            {#                <a class="nav-link" href={% url "all_std" %}>All Students List</a>#}
+            {#            </li>#}
+            {#            <li class="nav-item active">#}
+            {#                <a class="nav-link" href={% url "upload" %}>Upload Data</a>#}
+            {#            </li>#}
+            {#            <li class="nav-item">#}
+            {#                <a class="nav-link" href={% url "users" %}>Admin List</a>#}
+            {#            </li>#}
+            {#            <li class="nav-item">#}
+            {#                <a class="nav-link" href={% url "signup" %}>Admin Registration</a>#}
+            {#            </li>#}
+            {##}
+            {##}
+            {#            <li class="nav-item ">#}
+            {#                <a class="nav-link" href={% url "home" %}>Hello {{ user }}</a>#}
+            {#            </li>#}
+            {##}
+            {#            <li class="nav-item active">#}
+            {#                <a class="nav-link" href="/logout/">Logout</a>#}
+            {#            </li>#}
         </ul>
     </div>
 </nav>
 
 <div class="container">
-    <form method="post"  id="register-form">
+    <form method="post" id="register-form">
         {% csrf_token %}
         <div class="form-group">
             <label for="username">Username</label>
             <input type="name" class="form-control" id="username"
                    placeholder="Enter Name" name="username">
         </div>
+
         <div class="form-group">
-            <label for="pass1">Password</label>
-            <input type="password" class="form-control" id="pass1" placeholder="Password" name="password">
+            <label for="username">Full Name</label>
+            <input type="name" class="form-control" id="username"
+                   placeholder="Enter Name" name="username">
         </div>
+
+        {#        <div class="form-group">#}
+        {#            <label for="username">Email</label>#}
+        {#            <input type="name" class="form-control" id="username"#}
+        {#                   placeholder="Enter Name" name="username">#}
+        {#        </div>#}
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <div class="form-group">
-            <label for="pass2">Re-Enter Password</label>
-            <input type="password" class="form-control" id="pass2" placeholder="Password" name="password2">
+
+            <label for="pass1">Password:</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password"/>
+
+
         </div>
+
         <div class="form-group">
-            <label for="pass2">User Level</label>
+            <label for="pass2">confirm password:
+
+
+            </label>
+            <input type="password" class="form-control" name="confirm_password" id="confirm_password"
+                   placeholder="Password"/><br>
+            <span id='message'></span><br>
+        </div>
+
+        <script>
+            $('#password, #confirm_password').on('keyup', function () {
+                if ($('#password').val() == $('#confirm_password').val()) {
+                    $('#message').html('Matching').css('color', 'green');
+                } else
+                    $('#message').html('Not Matching').css('color', 'red');
+            });
+        </script>
+        {#        <div class="form-group">#}
+        {#            <label for="pass1">Password</label>#}
+        {#            <input type="password" class="form-control" id="pass1" placeholder="Password" name="password">#}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#            <label for="pass2">Re-Enter Password</label>#}
+        {#            <input type="password" class="form-control" id="pass2" placeholder="Password" name="password2">#}
+        {#        </div>#}
+        <div class="form-group">
+            <label>User Level</label>
 
             <select name="u_level" required="true">
-                    <option value="admin">Admin</option>
-                    <option value="superuser">Super Admin</option>
-                </select>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+                <option value="superuser">Super Admin</option>
+            </select>
         </div>
 
         <button type="submit" id="form-submit" class="btn btn-primary">Submit</button>
