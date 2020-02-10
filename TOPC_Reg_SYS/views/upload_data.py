@@ -6,13 +6,20 @@ from django.shortcuts import render, redirect
 def upload_data(request):
     if request.method == 'GET':
         if request.user.is_superuser:
-            user = User.objects.get(username=request.user.username)
-            return render(request, 'upload-data.html', {"user": user})
+            return render(request, 'upload-data.html', {"user": request.user})
         else:
             return redirect('ush')
     elif request.method == 'POST':
         filename = request.FILES['datafile']
-        print('------------------', filename)
-        return HttpResponse("file uploaded")
+        print('----------------------', filename)
+        return HttpResponse('file uploaded')
 
 
+def add_student(request):
+    if request.user.is_staff or request.user.is_superuser:
+        if request.method == 'GET':
+            return render(request, 'add-student.html', {"user": request.user})
+        elif request.method == 'POST':
+            return HttpResponse("user is added")
+    else:
+        return redirect('ush')
