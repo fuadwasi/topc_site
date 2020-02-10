@@ -9,15 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google" value="notranslate">
     <link rel="shortcut icon" href="/images/cp_ico.png">
-
-
-    <!--stylesheets / link tags loaded here-->
-
-
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"/>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"/>
-
-
     <style type="text/css">
         body,
         html {
@@ -109,58 +102,19 @@
             transform: rotate(-44deg);
         }
     </style>
-
 </head>
 <body>
-<nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-inverse bg-success mb-3">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#collapsingNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="flex-row d-flex">
-        <a class="navbar-brand mb-1" href="#">DIU</a>
+    {% if user.is_superuser %}
+        {% include 'fragment/nevbar_s_admin.html' %}
+    {% elif user.is_staff %}
+        {% include 'fragment/nevbar_admin.html' %}
+    {% endif %}
 
-    </div>
-    <div class="navbar-collapse collapse" id="collapsingNavbar">
+    {% block body %}
+    {% endblock %}
 
-        <ul class="navbar-nav ml-auto">
-
-
-            <li class="nav-item">
-                <a class="nav-link" href={% url "home" %}>Home <span class="sr-only">Home</span></a>
-            </li>
-
-            {% if post == 'super' %}
-                <li class="nav-item active">
-                    <a class="nav-link" href={% url "all_std" %}>All Students List</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href={% url "upload" %}>Upload Data</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href={% url "users" %}>Admin List</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href={% url "signup" %}>Admin Registration</a>
-                </li>
-
-            {% endif %}
-
-            <li class="nav-item ">
-                <a class="nav-link" href={% url "home" %}>Hello {{ user }}</a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="/logout/">Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-{% block body %}
-{% endblock %}
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 </body>
 </html>
