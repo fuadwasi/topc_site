@@ -114,52 +114,11 @@
 </head>
 
 <body>
-<nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-inverse bg-primary mb-3">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#collapsingNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="flex-row d-flex">
-        <a class="navbar-brand mb-1" href="#">DIU</a>
-        <button type="button" class="hidden-md-up navbar-toggler" data-toggle="offcanvas"
-                title="Toggle responsive left sidebar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-    <div class="navbar-collapse collapse" id="collapsingNavbar">
-
-        <ul class="navbar-nav ml-auto">
 
 
-            <li class="nav-item">
-                <a class="nav-link" href={% url "home" %}>Home <span class="sr-only">Home</span></a>
-            </li>
+{% include 'fragment/nevbar_admin.html' %}
 
 
-            <li class="nav-item active">
-                <a class="nav-link" href={% url "all_std" %}>All Students List</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href={% url "upload" %}>Upload Data</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href={% url "users" %}>Admin List</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href={% url "signup" %}>Admin Registration</a>
-            </li>
-
-
-            <li class="nav-item ">
-                <a class="nav-link" href={% url "home" %}>Hello {{ user }}</a>
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="/logout/">Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>
 <div class="container-fluid" id="main">
     <div class="row row-offcanvas row-offcanvas-left">
 
@@ -180,6 +139,7 @@
                     </form>
                     <h4>{{ msg }}</h4>
                     <h4>{{ msg2 }}</h4>
+                    {% include 'fragment/message_show.html' %}
                 </div>
             </div>
 
@@ -188,6 +148,10 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Username</th>
+                    <th scope="col">Is_Admin</th>
+                    {% if level == 3 %}
+                    <th scope="col">Is_Admin</th>
+                    {% endif %}
                     <th scope="col" class="text-center mx-auto">Action</th>
                 </tr>
                 </thead>
@@ -197,13 +161,18 @@
 
                         <td>{{ student.id }}</td>
                         <td>{{ student.username }}</td>
+                        <td>{{ student.is_staff }}</td>
+                        {% if level == 3 %}
+                         <td>{{ student.is_superuser }}</td>
+                        {% endif %}
 
                         <td class="text-center mx-auto">
 
                             <a href="/r_set/{{ student.id }}" class="btn  btn-success  ">Password Reset</a>
                             {% if student.username != user %}
-                                <a href="/delete/{{ student.id }}" class="btn  btn-danger ">Delete</a>
+                                <a href="/delete_user/{{ student.id }}" class="btn  btn-danger ">Delete</a>
                             {% endif %}
+
                         </td>
 
                     </tr>

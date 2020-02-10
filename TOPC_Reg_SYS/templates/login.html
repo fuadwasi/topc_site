@@ -151,20 +151,7 @@
         <form method="post" class="post-form">
             {% csrf_token %}
             <h3>Login</h3>
-            {% if messages %}
-                <div class="alert alert-danger">
-
-                    {% for message in messages %}
-
-                        <h6>
-                        {{ message }}
-                        </h6>
-
-
-                    {% endfor %}
-
-                </div>
-            {% endif %}
+            {% include 'fragment/message_show.html' %}
 
 
             <input type="text" name="u_name" placeholder="Enter Username" id="uname">

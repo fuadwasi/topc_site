@@ -114,50 +114,16 @@
 </head>
 
 <body>
-<nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-inverse bg-success mb-3">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#collapsingNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="flex-row d-flex">
-        <a class="navbar-brand mb-1" href="#">DIU</a>
 
-    </div>
-    <div class="navbar-collapse collapse" id="collapsingNavbar">
-
-        <ul class="navbar-nav ml-auto">
+{% if level == 1 %}
+    {% include 'fragment/nevbar_user.html' %}
+{% elif level == 2 %}
+    {% include 'fragment/nevbar_admin.html' %}
+{% elif level == 3 %}
+    {% include 'fragment/nevbar_s_admin.html' %}
+{% endif %}
 
 
-            <li class="nav-item">
-                <a class="nav-link" href={% url "home" %}>Home <span class="sr-only">Home</span></a>
-            </li>
-
-            {% if level > 0 %}
-                <li class="nav-item active">
-{#                    <a class="nav-link" href={% url "all_std" %}>All Students List</a>#}
-                </li>
-                <li class="nav-item active">
-{#                    <a class="nav-link" href={% url "upload" %}>Upload Data</a>#}
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href={% url "users" %}>Admin List</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href={% url "signup" %}>Admin Registration</a>
-                </li>
-
-            {% endif %}
-
-            <li class="nav-item ">
-{#                <a class="nav-link" href={% url "home" %}>Hello {{ user }}</a>#}
-            </li>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="/logout/">Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>
 <div class="container-fluid" id="main">
     <div class="row row-offcanvas row-offcanvas-left">
 
@@ -220,7 +186,7 @@
                     <h4 style="color: red" align="center">{{ msg }}</h4>
                 </div>
             </div>
-
+                {% include 'fragment/message_show.html' %}
             <table class="table">
                 <thead class="thead-dark">
                 <tr>

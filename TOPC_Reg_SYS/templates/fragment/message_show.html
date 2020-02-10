@@ -1,0 +1,16 @@
+{% if messages %}
+    <div class="alert alert-danger">
+
+        {% for message in messages %}
+
+            <h6>
+                <center>
+                    {{ message }}
+                </center>
+            </h6>
+
+
+        {% endfor %}
+
+    </div>
+{% endif %}

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class ALLStudents(models.Model):
     sID = models.CharField(max_length=30)
@@ -13,11 +14,10 @@ class ALLStudents(models.Model):
 
     regby = models.CharField(max_length=100)
     regtiem = models.DateTimeField()
-    status = models.CharField(max_length=100,default="Not_Registered")
+    status = models.CharField(max_length=100, default="Not_Registered")
 
     class Mate:
         db_table = "all_students"
-
 
 
 class RegStudents(models.Model):
@@ -34,10 +34,10 @@ class RegStudents(models.Model):
     rank = models.IntegerField(default=0)
     solve = models.IntegerField(default=99)
     penalty = models.IntegerField(default=99)
-    advance_camp = models.CharField(max_length=100,default="Pending")
+    advance_camp = models.CharField(max_length=100, default="Pending")
     regby = models.CharField(max_length=100)
     regtiem = models.DateTimeField()
-    reg_status = models.CharField(max_length=100,default="Not_Registered")
+    reg_status = models.CharField(max_length=100, default="Not_Registered")
 
     class Mate:
         db_table = "reg_students"
