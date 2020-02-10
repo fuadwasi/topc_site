@@ -215,6 +215,7 @@
 {% endblock %}
 
 {% block body %}
+{% include 'fragment/message_show.html' %}
     <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
         <div class="frame">

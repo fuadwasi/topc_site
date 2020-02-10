@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container-fluid" id="main">
+    <div class="row row-offcanvas row-offcanvas-left">
+
+        <!--/col-->
+
+        <div class="col-md-9 col-lg-10 main mx-auto">
+
+
+
+            <!--/row-->
+            <div class="row my-5 mx-auto">
+                <div class="offset-md-2"></div>
+                <div class="col-md-8">
+                    <form class="form-inline my-2 my-lg-0" method="post">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2 w-75" type="search" placeholder="Enter ID or Name"
+                               aria-label="Search" name="search" id="search1">
+                        <script>
+                            window.onload = function () {
+                                document.getElementById("search1").focus();
+                            };
+                        </script>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                    <h4 style="color: red" align="center">{{ msg }}</h4>
+                </div>
+            </div>
+                {% include 'fragment/message_show.html' %}
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Token No</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" class="text-center mx-auto">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.id }}</td>
+                        <td>{{ student.sID }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.status }}</td>
+                        <td class="text-center mx-auto">
+                            {% if student.status == 'not_taken' %}
+                                <a href="/register/{{ student.id }}" class="btn  btn-success  ">Register</a>
+                            {% else %}
+                                <a class="btn btn-danger text-light disabled ">Already Registered</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
