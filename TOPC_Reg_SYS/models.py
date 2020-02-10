@@ -11,7 +11,6 @@ class ALLStudents(models.Model):
     campus = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
-
     regby = models.CharField(max_length=100)
     regtiem = models.DateTimeField()
     status = models.CharField(max_length=100, default="Not_Registered")
