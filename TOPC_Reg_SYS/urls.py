@@ -13,4 +13,5 @@ urlpatterns = [
     path('r_set/<int:id>', views.r_set, name='r_set'),
     path('delete_user/<int:id>', views.delete_user, name='delete_user'),
     path('upload-data/', views.upload_data, name='upload')
+
 ]
