@@ -15,4 +15,6 @@ urlpatterns = [
     path('upload-data/', views.upload_data, name='upload'),
     path('add-student/', views.add_student, name='add-student'),
     path('all_std/', views.all_std, name='all_std'),
+    path('reg_std/', views.reg_std, name='reg_std'),
+    path('register/<int:id>', views.register, name='register'),
 ]

@@ -1,5 +1,170 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <h1>this is student registration page</h1>
+
+    {% if msg == 'Entry Succcessful' %}
+        <h4 class="alert alert-success">
+            <center>{{ msg }}</center>
+        </h4>
+    {% elif msg %}
+        <h4 class="alert alert-danger">{{ msg }}</h4>
+    {% endif %}
+
+    <div class="container">
+        <form method="post" id="register-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="u_name">Name</label>
+                <input type="text" name="u_name" class="form-control" id="u_name"
+                       value="{{ student.name }}"  {% if user.is_staff == 0 %}disabled{% endif %}>
+            </div>
+
+            <div class="form-group">
+                <label for="sId">Student Id</label>
+                <input type="text" class="form-control" id="sId"
+                       value="{{ student.sID }}" name="sId" {% if user.is_superuser == 0 %}disabled{% endif %}>
+            </div>
+
+
+
+            {% if user.is_superuser == 0 %}
+                <div class="form-group">
+                    <label for="dept">Department</label>
+                    <select name="dept" required="true" {% if user.is_staff == 0 %}disabled{% endif %}>
+                        <option value="{{ student.department }}">{{ student.department }}</option>
+                        <option value="CSE">CSE</option>
+                        <option value="SWE">SWE</option>
+                        <option value="CIS">CIS</option>
+                        <option value="ETE">ETE</option>
+                    </select>
+                </div>
+            {% elif user.is_superuser == 1 %}
+                <div class="form-group">
+                    <label for="dept">Department</label>
+                    <input type="text" name="dept" value="{{ student.department }}" required="true"
+                           {% if user.is_staff == 0 %}disabled{% endif %}>
+                </div>
+            {% endif %}
+
+
+
+
+
+
+            <div class="form-group">
+                <label for="campus">Campus</label>
+                <select name="campus" required="true" {% if user.is_staff == 0 %}disabled{% endif %}>
+                    <script>
+
+                    </script>
+
+                    {% if student.campus == 'MC' %}
+                        <option value="{{ student.campus }}">Main Campus</option>
+                        <option value="UC">Uttara Campus</option>
+                    {% else %}
+                        <option value="UC">Uttara Campus</option>
+                        <option value="MC">1st</option>
+                    {% endif %}
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="shift">Shift</label>
+                <select name="shift" required="true">
+                    <option value="{{ student.shift }}">{{ student.shift }}</option>
+                    {% if student.shift == 'Day' %}
+
+                        <option value="Evening">Evening</option>
+                    {% else %}
+                        <option value="Day">Day</option>
+                    {% endif %}
+
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="sem">Semester</label>
+                <select name="sem" required="true">
+                    <option value="{{ student.semester }}">{{ student.semester }}</option>
+                    {% if student.semester == '1st' %}
+                        <option value="2nd">2nd</option>
+                    {% else %}
+                        <option value="1st">1st</option>
+                    {% endif %}
+
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label>Section</label>
+
+                <select name="sec" required="true">
+                    <option value="{{ student.section }}">{{ student.section }}</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                    <option value="I">I</option>
+                    <option value="J">J</option>
+                    <option value="K">K</option>
+                    <option value="L">L</option>
+                    <option value="M">M</option>
+                    <option value="N">N</option>
+                    <option value="O">O</option>
+                    <option value="P">P</option>
+                    <option value="Q">Q</option>
+                    <option value="R1(old)">R1(old)</option>
+                    <option value="R1">R1</option>
+                    <option value="UC-A">UC-A</option>
+                    <option value="UC-A(old)">UC-A(old)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>T-shirt Size</label>
+
+                <select name="T_shirt" required="true">
+                    <option value="m">M</option>
+                    <option value="l">L</option>
+                    <option value="xl">XL</option>
+                    <option value="xxl">XXL</option>
+                    <option value="xxxl">XXXL</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email"
+                       value="{{ student.email }}" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone No</label>
+                <input type="text" class="form-control" id="phone"
+                       placeholder="Enter the phone number" name="phone" required>
+            </div>
+
+
+
+            <button type="submit" id="form-submit" class="btn btn-success">Submit</button>
+            <a class="btn btn-danger " href={% url "ush" %}>Cancel</a>
+
+
+        </form>
+
+
+        <div>
+
+
+        </div>
+
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 {% endblock %}

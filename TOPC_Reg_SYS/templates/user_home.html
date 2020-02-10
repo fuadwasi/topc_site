@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
+{#    {% include 'fragment/message_show.html' %}#}
     <div class="container-fluid" id="main">
     <div class="row row-offcanvas row-offcanvas-left">
 
@@ -17,7 +18,7 @@
                                 <i class="fa fa-user fa-5x"></i>
                             </div>
                             <h6 class="text-uppercase">Total Students</h6>
-                            <h1 class="display-1">{{ total_std }}</h1>
+                            <h1 class="display-1">{{ total_count }}</h1>
                         </div>
                     </div>
                 </div>
@@ -28,7 +29,7 @@
                                 <i class="fa fa-list fa-4x"></i>
                             </div>
                             <h6 class="text-uppercase">Registered</h6>
-                            <h1 class="display-1">{{ col_std }}</h1>
+                            <h1 class="display-1">{{ stdcount }}</h1>
                         </div>
                     </div>
                 </div>
@@ -39,7 +40,7 @@
                                 <i class="fa fa-twitter fa-5x"></i>
                             </div>
                             <h6 class="text-uppercase">Seat Available</h6>
-                            <h1 class="display-1">{{ not_col_std }}</h1>
+                            <h1 class="display-1">{{ seat_avail}}</h1>
                         </div>
                     </div>
                 </div>
@@ -63,7 +64,15 @@
                     <h4 style="color: red" align="center">{{ msg }}</h4>
                 </div>
             </div>
+
+
+
+
                 {% include 'fragment/message_show.html' %}
+
+
+
+
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
@@ -82,7 +91,7 @@
                         <td>{{ student.name }}</td>
                         <td>{{ student.status }}</td>
                         <td class="text-center mx-auto">
-                            {% if student.status == 'not_taken' %}
+                            {% if student.status == 'Not_Registered' %}
                                 <a href="/register/{{ student.id }}" class="btn  btn-success  ">Register</a>
                             {% else %}
                                 <a class="btn btn-danger text-light disabled ">Already Registered</a>

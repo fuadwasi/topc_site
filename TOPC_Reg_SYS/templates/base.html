@@ -108,9 +108,9 @@
 <body>
 {% if user.is_superuser %}
     {% include 'fragment/nevbar_s_admin.html' %}
-{% elif user.is_staff %}
+{% elif user.is_staff  %}
     {% include 'fragment/nevbar_admin.html' %}
-{% elif user.is_active %}
+{% else %}
     {% include 'fragment/nevbar_user.html' %}
 {% endif %}
 

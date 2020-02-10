@@ -47,6 +47,7 @@ def upload_data(request):
                         update_std.semester = column[4]
                         update_std.section = column[5]
                         update_std.shift = column[6]
+                        update_std.regtiem= datetime.now()
                         update_std.save()
                     else:
 
@@ -72,7 +73,7 @@ def upload_data(request):
 
 
 def add_student(request):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_staff:
         if request.method == 'GET':
             return render(request, 'add-student.html', {"user": request.user})
         elif request.method == 'POST':

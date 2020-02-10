@@ -70,7 +70,7 @@ def ush(request):
     if request.user.is_authenticated:
         level = 0
         stdcount = RegStudents.objects.all().count()
-
+        total_count = ALLStudents.objects.all().count()
         if request.user.is_superuser:
             level = 3
         elif request.user.is_staff:
@@ -78,24 +78,33 @@ def ush(request):
         else:
             level = 1
         if request.method == "GET":
-            context = {'level': level, 'stdcount': stdcount, 'user': request.user}
+
+            context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user}
             return render(request, "user_home.html", context)
         elif request.method == "POST":
             sID = request.POST['search']
+            if sID=='':
+                messages.success(request, "No Data Entered")
+                return redirect('ush')
             if sID == '%':
                 obj = ALLStudents.objects.all()
-                context = {'level': level, 'stdcount': stdcount, 'ALLstudents': obj, 'user': request.user}
-                return render(request, "user_home.html", context)
+                if obj:
+                    context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'students': obj, 'user': request.user}
+                    return render(request, "user_home.html", context)
+                else:
+                    messages.success(request, "No Data Found")
+                    return redirect('ush')
             elif sID != "":
                 std = ALLStudents.objects.filter(Q(sID__contains=sID) | Q(name__contains=sID))
 
                 if std:
-                    context = {'level': level, 'stdcount': stdcount, 'ALLstudents': std, 'user': request.user}
+                    context = {'level': level, 'stdcount': stdcount, 'students': std,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user}
                     return render(request, "user_home.html", context)
                 else:
-                    pass
+                    messages.success(request, "No Data Found")
+                    return redirect('ush')
             else:
-                context = {'level': level, 'stdcount': stdcount, 'user': request.user}
+                context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user}
                 return render(request, "user_home.html", context)
     else:
         system_messages = messages.get_messages(request)

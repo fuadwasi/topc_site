@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% include 'fragment/message_show.html' %}
+    <div class="container-fluid" id="main">
+    <div class="row row-offcanvas row-offcanvas-left">
+
+        <!--/col-->
+
+        <div class="col-md-9 col-lg-10 main mx-auto">
+
+
+            <!--/row-->
+            <div class="row my-5 mx-auto">
+                <div class="col-md-8">
+                    <form class="form-inline my-2 my-lg-0" method="post">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2 w-75" type="search" placeholder="Enter ID or Name"
+                               aria-label="Search" name="search" id="search2">
+                        <script>
+                            window.onload = function () {
+                                document.getElementById("search2").focus();
+                            };
+                        </script>
+
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                    <h4>{{ msg }}</h4>
+                    <h4>{{ msg2 }}</h4>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-info " href={% url "all_std" %}>All Student List</a>
+                </div>
+            </div>
+
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">SN</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Given By</th>
+                    <th scope="col">Time</th>
+                    {#                    <th scope="col" class="text-center mx-auto">Action</th>#}
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for student in students %}
+                    <tr>
+                        {% if student.username != user %}
+                            <td>{{ student.id }}</td>
+
+
+                            <td>{{ student.sID }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.status }}</td>
+                            {% if student.status == "taken" %}
+                                <td>{{ student.givenby }}</td>
+                                <td>{{ student.created }}</td>
+                            {% else %}
+                                <td>{{ "----" }}</td>
+                                <td>{{ "----" }}</td>
+
+                            {% endif %}
+
+
+                            <td class="text-center mx-auto">
+                                {% if user.username == 'fuad' %}
+                                    <a href="/stat_reset/{{ student.id }}"
+                                       class="btn  btn-success {% if student.status == "not_taken" %} disabled{% endif %} "
+
+                                    >Reset</a>
+                                    <a href="/del_std/{{ student.id }}" class="btn  btn-danger ">Delete</a>
+                                {% endif %}
+
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

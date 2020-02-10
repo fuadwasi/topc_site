@@ -12,7 +12,6 @@
                 <a class="nav-link" href={% url "home" %}>Home <span class="sr-only">Home</span></a>
             </li>
 
-            {% if level > 0 %}
                 <li class="nav-item">
                     <a class="nav-link" href={% url "add-student" %}>Add Student</a>
                 </li>
@@ -23,7 +22,6 @@
                     <a class="nav-link" href={% url "signup" %}>Admin Registration</a>
                 </li>
 
-            {% endif %}
 
             <li class="nav-item ">
                 <a class="nav-link" href={% url "home" %}>Hello {{ user.username }}</a>

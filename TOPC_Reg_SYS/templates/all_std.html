@@ -47,7 +47,7 @@
                         <td>{{ student.name }}</td>
                         <td>{{ student.status }}</td>
                         <td class="text-center mx-auto">
-                            {% if student.status == 'not_taken' %}
+                            {% if student.status == 'Not_Registered' %}
                                 <a href="/register/{{ student.id }}" class="btn  btn-success  ">Register</a>
                             {% else %}
                                 <a class="btn btn-danger text-light disabled ">Already Registered</a>

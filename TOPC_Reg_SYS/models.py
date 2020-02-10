@@ -12,6 +12,7 @@ class ALLStudents(models.Model):
     shift= models.CharField(max_length=100, default="none")
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
+    t_shirt= models.CharField(max_length=100, default="none")
     rank = models.IntegerField(default=0)
     solve = models.IntegerField(default=99)
     penalty = models.IntegerField(default=99999)
@@ -24,6 +25,7 @@ class ALLStudents(models.Model):
 
 
 class RegStudents(models.Model):
+    token = models.IntegerField(default=99999)
     sID = models.CharField(max_length=30)
     name = models.CharField(max_length=100)
     semester = models.CharField(max_length=100)
@@ -33,6 +35,7 @@ class RegStudents(models.Model):
     shift= models.CharField(max_length=100, default="Pending")
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
+    t_shirt= models.CharField(max_length=100, default="none")
     room = models.CharField(max_length=100)
     pc_no = models.CharField(max_length=100)
     userid = models.CharField(max_length=100, default="none")
