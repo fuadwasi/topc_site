@@ -108,7 +108,7 @@ def ush(request):
 
 
 
-                                                        last_name=sId, email=email)
+
 
 def users(request):
     if request.user.is_staff:
@@ -135,7 +135,6 @@ def users(request):
         return redirect("ush")
 
 
-                           'messages': "Wrong password entered"}
 def delete_user(request, id):
     system_messages = messages.get_messages(request)
     for message in system_messages:

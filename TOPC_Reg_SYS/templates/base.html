@@ -102,19 +102,25 @@
             transform: rotate(-44deg);
         }
     </style>
+    {% block styles %}
+    {% endblock %}
 </head>
 <body>
-    {% if user.is_superuser %}
-        {% include 'fragment/nevbar_s_admin.html' %}
-    {% elif user.is_staff %}
-        {% include 'fragment/nevbar_admin.html' %}
-    {% endif %}
+{% if user.is_superuser %}
+    {% include 'fragment/nevbar_s_admin.html' %}
+{% elif user.is_staff %}
+    {% include 'fragment/nevbar_admin.html' %}
+{% elif user.is_active %}
+    {% include 'fragment/nevbar_user.html' %}
+{% endif %}
 
-    {% block body %}
-    {% endblock %}
+{% block body %}
+{% endblock %}
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+{% block scripts %}
+{% endblock %}
 </body>
 </html>

@@ -28,7 +28,7 @@ def signup(request):
             level = 3
 
         if request.method == 'GET':
-            return render(request, "signup.html", {'user': request.user.username, "level": level})
+            return render(request, "signup.html", {'user': request.user, "level": level})
         elif request.method == "POST":
 
             system_messages = messages.get_messages(request)
@@ -46,7 +46,7 @@ def signup(request):
             password2 = request.POST["confirm_password"]
             u_level = request.POST["u_level"]
             if username == '' or password == '':
-                return render(request, "signup.html", {'msg': 'Data missing', 'user': request.user.username})
+                return render(request, "signup.html", {'msg': 'Data missing', 'user': request.user})
             else:
                 if level < 3 and u_level == 'superuser':
                     messages(request, "Your are not authorized to do this  operation")
@@ -54,14 +54,13 @@ def signup(request):
                 old_user = User.objects.filter(Q(username__exact=username))
                 if old_user:
                     return render(request, "signup.html",
-                                  {'msg': 'User Already Exists', 'user': request.user.username})
+                                  {'msg': 'User Already Exists', 'user': request.user})
                 elif password2 != password:
                     return render(request, "signup.html",
-                                  {'msg': 'Password does not match', 'user': request.user.username})
+                                  {'msg': 'Password does not match', 'user': request.user})
                 else:
 
-                    new_user = User.objects.create_user(username=username, password=password, first_name=f_name,
-                                                        last_name=sId, email=email)
+                    new_user = User.objects.create_user(username=username, password=password, first_name=f_name, last_name=sId, email=email)
                     if u_level == 'superuser':
                         new_user.is_superuser = 1
                         new_user.is_staff = 1
