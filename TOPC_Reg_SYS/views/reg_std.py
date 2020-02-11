@@ -7,6 +7,9 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.utils.crypto import get_random_string
+import random
+import string
 
 from django.utils import timezone
 from datetime import datetime
@@ -117,7 +120,13 @@ def register(request,id):
             )
             new_reg.save()
             new_std=RegStudents.objects.latest('id')
+            # letters = string.ascii_uppercase
+            # password ''.join(random.choice(letters) for i in range(stringLength))
+            pass_gen =get_random_string(length=10, allowed_chars='QWERTYUIOPASDFGHJKLZXCVBNM123456789')
+            new_std.password = pass_gen
             new_std.token=new_std.id+1000
+            get_std.token=new_std.token
+            get_std.save()
             new_std.userid="diu_topc_spr20_"+ str(new_std.id+1000)
             new_std.save()
             string= "Registration of " + new_std.name + " successful.\n Details:\n Name: " + new_std.name + "\nStudent ID: "+ new_std.sID +"\nToken no: "+ str(new_std.token)
