@@ -80,6 +80,8 @@
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Token No</th>
+                    <th scope="col">Tshirt</th>
                     <th scope="col" class="text-center mx-auto">Action</th>
                 </tr>
                 </thead>
@@ -90,13 +92,21 @@
                         <td>{{ student.sID }}</td>
                         <td>{{ student.name }}</td>
                         <td>{{ student.status }}</td>
-                        <td class="text-center mx-auto">
+
                             {% if student.status == 'Not_Registered' %}
+                                <td>----</td>
+                                <td>----</td>
+                                <td class="text-center mx-auto">
                                 <a href="/register/{{ student.id }}" class="btn  btn-success  ">Register</a>
+                                </td>
                             {% else %}
+                                <td>{{student.token}}</td>
+                                <td>{{student.t_shirt}}</td>
+                                <td class="text-center mx-auto">
                                 <a class="btn btn-danger text-light disabled ">Already Registered</a>
+                                </td>
                             {% endif %}
-                        </td>
+
                     </tr>
                 {% endfor %}
                 </tbody>
