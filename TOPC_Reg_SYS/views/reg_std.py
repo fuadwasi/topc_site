@@ -16,6 +16,10 @@ from datetime import datetime
 from django.db.models.functions import Now
 
 from TOPC_Reg_SYS.models import ALLStudents, RegStudents
+from . import email_conf_send
+
+# send_mail(email_subject,email_body,sender_id,receiver_id, fail_silently= False)
+
 
 #  ......................  Showing the list of registered students ................
 def reg_std(request):
@@ -114,7 +118,8 @@ def register(request,id):
                 name = request.POST['u_name']
                 department = request.POST['department']
                 get_std.name = name
-                get_std.department = department
+                if department != "def_dep":
+                    get_std.department = department
                 get_std.save()
 
             new_reg = RegStudents.objects.create(
@@ -134,6 +139,21 @@ def register(request,id):
             new_reg.userid="diu.topc.spr20."+ str(new_reg.id+1000)
             new_reg.save()
             string= "Registration of " + new_reg.basic_info.name + " successful.\n Details:\n Name: " + new_reg.basic_info.name + "\nStudent ID: "+ new_reg.basic_info.sID +"\nToken no: "+ str(new_reg.token)
+            email_body = 'Dear ' + get_std.name + '\n\n Your registration has been successfull for Take-Off Programming Contest, Spring 2020.'
+            email_body += 'Your registration details:\n\n'
+            email_body += '\nName: '+ get_std.name
+            email_body += '\nID: '+get_std.sID
+            email_body += '\nToken No: '+ str(get_std.token)
+            email_body += '\nT-Shirt Size: '+ new_reg.t_shirt
+            email_body += '\nRegistration on: '+str(new_reg.regtiem)
+            email_body += '\n\n\nIf you have any confusion please come to the registraion booth and let us know.'
+            email_body += 'Thanks for being with us\n\n\n With best regurds\nDIUCPC'
+
+
+            email_subject = "TOPC Spring 2020 Registration cancellation"
+            email_conf_send.email_send(['fhassanwasi@gmail.com','shakil15-9376@diu.edu.bd','erfanul15-10777@diu.edu.bd'], email_subject, email_body)
+
+
             messages.success(request,string)
             return redirect('ush')
 

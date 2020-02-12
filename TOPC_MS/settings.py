@@ -119,3 +119,10 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+# ...................Sending email configurations:...................
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'mail.shakilahmed.com'
+EMAIL_HOST_USER = 'fuad@shakilahmed.com'
+EMAIL_HOST_PASSWORD = 'diu@123456'
+EMAIT_PORT = 26
+

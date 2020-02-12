@@ -17,14 +17,13 @@ from django.db.models.functions import Now
 
 
 
-def r_set(request, id):
+def pass_reset(request, id):
     if request.user.is_staff:
         admin = User.objects.get(Q(id__exact=id))
         if request.user.is_staff:
             level = 2
         if request.user.is_superuser:
             level = 3
-
         if request.method == 'GET':
             context = {'admin': admin.username, 'level': level, 'user': request.user}
 
