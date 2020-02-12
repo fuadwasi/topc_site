@@ -151,7 +151,7 @@ def register(request,id):
 
 
             email_subject = "TOPC Spring 2020 Registration cancellation"
-            email_conf_send.email_send(['fhassanwasi@gmail.com','shakil15-9376@diu.edu.bd','erfanul15-10777@diu.edu.bd'], email_subject, email_body)
+            email_conf_send.email_send(['fuad15-9400@diu.edu.bd','shakil15-9376@diu.edu.bd','erfanul15-10777@diu.edu.bd'], email_subject, email_body)
 
 
             messages.success(request,string)

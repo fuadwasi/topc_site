@@ -120,9 +120,15 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 # ...................Sending email configurations:...................
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'mail.shakilahmed.com'
+# EMAIL_HOST_USER = 'fuad@shakilahmed.com'
+# EMAIL_HOST_PASSWORD = 'diu@123456'
+# EMAIT_PORT = 26
+
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'mail.shakilahmed.com'
-EMAIL_HOST_USER = 'fuad@shakilahmed.com'
-EMAIL_HOST_PASSWORD = 'diu@123456'
-EMAIT_PORT = 26
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'fhassanwasi@.com'
+EMAIL_HOST_PASSWORD = 'pwgfcczgdurtwnlo'
+EMAIT_PORT = 587
 
