@@ -1,0 +1,339 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Merriweather+Sans:300,400,700);
+
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+
+        .Widget {
+            margin: 10px;
+            box-shadow: 1px 1px 5px #333;
+            text-align: center;
+            font-family: 'Merriweather Sans', sans-serif;
+            color: ghostwhite;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        .Widget-header {
+            padding: 10px 20px;
+        }
+
+        .Widget-headline {
+            margin: 0;
+        }
+
+        /*
+         * Weather Widget
+         */
+        .WeatherWidget {
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            flex-direction: column;
+            width: 300px;
+            background: #5CC8E5;
+        }
+
+        .WeatherWidget .Widget-header {
+            position: relative;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-pack: end;
+            justify-content: flex-end;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .WeatherWidget .Widget-body {
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+        }
+
+        .WeatherWidget-primaryIcon {
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            height: 120px;
+            width: 120px;
+            z-index: 0;
+            opacity: .4;
+        }
+
+        .WeatherWidget .Widget-headline {
+            font-size: 3em;
+            z-index: 1;
+        }
+
+        .WeatherWidget .Widget-body {
+            -webkit-box-flex: 1;
+            flex: 1;
+            background: #39bcdf;
+            padding: 20px;
+            font-weight: 300;
+        }
+
+        .Color-1 {
+            background: #D4F4E8;
+        }
+
+        .Color-2 {
+            background: #FF95A2;
+        }
+
+        .Color-3 {
+            background: #ED8161;
+            color: white;
+        }
+
+        .Color-4 {
+            background: #68A691;
+            color: white;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <section class="Widget WeatherWidget">
+                    <header class="Widget-header">
+                        <img src="https://image.flaticon.com/icons/svg/1419/1419213.svg" alt=""
+                             class="WeatherWidget-primaryIcon"/>
+
+                        <h2 class="Widget-headline">58&deg;</h2>
+                    </header>
+                    <div class="Widget-body">
+                        <p>Wear a light jacket.<br/>You might end up carrying it.</p>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section class="Widget WeatherWidget">
+                    <header class="Widget-header">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-80/sun.svg" alt=""
+                             class="WeatherWidget-primaryIcon"/>
+
+                        <h2 class="Widget-headline">58&deg;</h2>
+                    </header>
+                    <div class="Widget-body">
+                        <p>Wear a light jacket.<br/>You might end up carrying it.</p>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section class="Widget WeatherWidget">
+                    <header class="Widget-header">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-80/sun.svg" alt=""
+                             class="WeatherWidget-primaryIcon"/>
+
+                        <h2 class="Widget-headline">58&deg;</h2>
+                    </header>
+                    <div class="Widget-body">
+                        <p>Wear a light jacket.<br/>You might end up carrying it.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div id="campus"></div>
+            </div>
+            <div class="col-md-4">
+                <div id="gender"></div>
+            </div>
+            <div class="col-md-4">
+                <div id="shift"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id="dept"></div>
+            </div>
+{#            <div class="offset-md-1"></div>#}
+            <div class="col-md-5">
+                <div id="tshirt"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="semester-section"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages: ['corechart']});
+        google.setOnLoadCallback(drawGenderChart);
+        google.setOnLoadCallback(drawCampusChart);
+        google.setOnLoadCallback(drawShiftChart);
+        google.setOnLoadCallback(drawSemesterSectionChart);
+        google.charts.setOnLoadCallback(drawDeptChart);
+        google.charts.setOnLoadCallback(drawTshirtChart);
+
+        function drawDeptChart() {
+            var data = google.visualization.arrayToDataTable([
+                ["Department", "Count", {role: "style"}],
+                ["CSE", 180, "#b87333"],
+                ["SWE", 70, "silver"],
+                ["EEE", 50, "gold"],
+                ["MCT", 60, "color: #e5e4e2"]
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2]);
+
+            var options = {
+                title: "Department",
+                width: 600,
+                height: 400,
+                bar: {groupWidth: "95%"},
+                legend: {position: "none"},
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("dept"));
+            chart.draw(view, options);
+        }
+
+        function drawGenderChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Dept', 'Count'],
+                ['Male', 1],
+                ['Female', 4],
+            ]);
+
+            var options = {
+                title: 'Gender',
+                slices: {
+                    0: {color: '#61DAFB'},
+                    1: {color: '#1DADCD'},
+                },
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('gender'));
+
+            chart.draw(data, options);
+        }
+
+        function drawCampusChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Campus', 'Count'],
+                ['Main', 1],
+                ['Uttara', 4],
+            ]);
+
+            var options = {
+                title: 'Campus',
+                slices: {
+                    0: {color: '#61DAFB'},
+                    1: {color: '#1DADCD'},
+                    2: {color: '#0082A0'}
+                },
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('campus'));
+
+            chart.draw(data, options);
+        }
+
+        function drawShiftChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Shift', 'Count'],
+                ['Day', 250],
+                ['Evening', 70],
+            ]);
+
+            var options = {
+                title: 'Shift',
+                slices: {
+                    0: {color: '#61DAFB'},
+                    1: {color: '#1DADCD'},
+                    2: {color: '#0082A0'}
+                },
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('shift'));
+
+            chart.draw(data, options);
+        }
+
+        function drawTshirtChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Tshirt', 'Count'],
+                ['S', 25],
+                ['M', 50],
+                ['L', 40],
+                ['XL', 30],
+                ['XXL', 20],
+                ['XXXL', 10],
+            ]);
+
+            var options = {
+                title: 'T-Shirt',
+                slices: {
+                    0: {color: '#61DAFB'},
+                    1: {color: '#1DADCD'},
+                    2: {color: '#0082A0'}
+                },
+                pieHole: 0.4,
+                height: 350,
+                width: 500,
+                legend: 'bottom'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('tshirt'));
+
+            chart.draw(data, options);
+        }
+
+        function drawSemesterSectionChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Section', 'A', 'B', 'C', 'D',
+                    'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', {role: 'annotation'}],
+                ['1st', 10, 24, 20, 10, 18, 5, 6, 7, 2, 4, 8, 0, 21, 5, 5, 4, 8, ''],
+                ['2nd', 10, 24, 20, 5, 18, 5, 6, 7, 2, 4, 8, 0, 21, 5, 5, 6, 8, ''],
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
+
+            var options = {
+                {#width: 1000,#}
+                height: 400,
+                {#legend: {position: 'top', maxLines: 3},#}
+                bar: {groupWidth: '40%'},
+                isStacked: true,
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById("semester-section"));
+            chart.draw(view, options);
+        }
+    </script>
+
+{% endblock %}
