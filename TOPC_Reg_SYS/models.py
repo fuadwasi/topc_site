@@ -43,13 +43,20 @@ class RegStudents(models.Model):
     class Mate:
         db_table = "reg_students"
 
+
+
+
 class Req_queuey(models.Model):
     token = models.IntegerField(default=99999)
     req_info = models.OneToOneField(RegStudents, on_delete=models.CASCADE)
-
-
+    req_by=models.CharField(max_length=100, default="none")
+    req_time = models.DateTimeField(auto_now_add=True)
     class Mate:
         db_table = "req_queue"
+
+
+
+
 
 class Teacher_Info(models.Model):
     tID = models.CharField(max_length=30)
@@ -64,6 +71,21 @@ class Teacher_Info(models.Model):
 
     class Mate:
         db_table = "teacher_info"
+
+class Cancel_log(models.Model):
+
+    token = models.IntegerField(default=99999)
+    sID = models.CharField(max_length=30)
+    email = models.CharField(max_length=100, default="none")
+    phone = models.CharField(max_length=100, default="none")
+    cancel_by = models.CharField(max_length=100, default="none")
+    cancel_time = models.DateTimeField(auto_now_add=True)
+    req_by = models.CharField(max_length=100, default="none")
+    req_time = models.DateTimeField()
+
+
+    class Mate:
+        db_table = "cancel_log"
 
 
 

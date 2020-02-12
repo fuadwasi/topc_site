@@ -56,6 +56,11 @@ def register(request,id):
             else:
                 messages.success(request,"No student Data Found")
         elif request.method == "POST":
+            system_messages = messages.get_messages(request)
+            for message in system_messages:
+                # This iteration is necessary
+                pass
+            system_messages.used = True
 
             get_std = ALLStudents.objects.get(id=id)
 
@@ -68,7 +73,9 @@ def register(request,id):
 
             gender = request.POST['gender']
             section = request.POST['section']
-
+            email2 = request.POST['email2']
+            phone2 = request.POST['phone2']
+            t_shirt = request.POST['t_shirt']
             regtiem = datetime.now()
             regby = request.user.username
             status = "Registered"
@@ -77,62 +84,56 @@ def register(request,id):
 
             # get_std.name = u_name
 
-            get_std.semester = sem
-            get_std.section = sec
-
-            get_std.shift = shift
-            get_std.t_shirt = T_shirt
-            get_std.email = email
-            get_std.phone = phone
-            get_std.regtiem = regtiem
-            get_std.regby = regby
-            get_std.status = status
+            get_std.gender = gender
+            get_std.section = section
+            get_std.sec_email = email2
+            get_std.sec_phone = phone2
             get_std.save()
 
-
-
-
-
+            if get_std.status== 'Registered':
+                # up_sid = get_std.sID
+                update_std = RegStudents.objects.get(sID=get_std.sID)
+                update_std.t_shirt=t_shirt
+                string= "Data of "+get_std.name+" has beed updated successfully. Token no is"+ str(update_std.token)
+                update_std.save()
+                messages.success(request,string)
+                return redirect('ush')
 
 
 
             if request.user.is_staff:
-                u_name = request.POST['u_name']
-                dept = request.POST['dept']
                 campus = request.POST['campus']
-
-                get_std.name = u_name
-                get_std.department = dept
+                semester = request.POST['semester']
                 get_std.campus = campus
+                get_std.semester= semester
+                get_std.save()
+
+            get_std.status = status
+            get_std.save()
+            if request.user.is_superuser:
+                name = request.POST['u_name']
+                department = request.POST['department']
+                get_std.name = name
+                get_std.department = department
                 get_std.save()
 
             new_reg = RegStudents.objects.create(
-                name = get_std.name 	  ,
                 sID		= get_std.sID 	  ,
-                department	= get_std.department	  ,
-                semester 	= get_std.semester 	  ,
-                section= get_std.section	  ,
-                campus 	= get_std.campus  ,
-                shift	= get_std.shift	  ,
-                t_shirt	= get_std.t_shirt ,
-                email	= get_std.email	  ,
-                phone	= get_std.phone	  ,
-                regtiem	= get_std.regtiem ,
-                regby	= get_std.regby	  ,
-                reg_status	= get_std.status
+                t_shirt	= t_shirt ,
+                regby	= regby	  ,
+                basic_info = get_std
             )
             new_reg.save()
-            new_std=RegStudents.objects.latest('id')
             # letters = string.ascii_uppercase
             # password ''.join(random.choice(letters) for i in range(stringLength))
             pass_gen =get_random_string(length=10, allowed_chars='QWERTYUIOPASDFGHJKLZXCVBNM123456789')
-            new_std.password = pass_gen
-            new_std.token=new_std.id+1000
-            get_std.token=new_std.token
+            new_reg.password = pass_gen
+            new_reg.token= new_reg.id+1000
+            get_std.token=new_reg.token
             get_std.save()
-            new_std.userid="diu_topc_spr20_"+ str(new_std.id+1000)
-            new_std.save()
-            string= "Registration of " + new_std.name + " successful.\n Details:\n Name: " + new_std.name + "\nStudent ID: "+ new_std.sID +"\nToken no: "+ str(new_std.token)
+            new_reg.userid="diu.topc.spr20."+ str(new_reg.id+1000)
+            new_reg.save()
+            string= "Registration of " + new_reg.basic_info.name + " successful.\n Details:\n Name: " + new_reg.basic_info.name + "\nStudent ID: "+ new_reg.basic_info.sID +"\nToken no: "+ str(new_reg.token)
             messages.success(request,string)
             return redirect('ush')
 

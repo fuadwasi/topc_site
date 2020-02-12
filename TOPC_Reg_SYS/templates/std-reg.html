@@ -208,17 +208,18 @@
 
                         <div class="form-group col-md-12">
                             <label for="sId">Student ID*</label>
-                            <input type="text" class="form-control" id="sId" name="sId" value="{{ student.sID }}"
-                                   {% if user.is_superuser == 0 %}disabled{% endif %}>
+                            <input type="text" class="form-control" id="sId" name="sId" value="{{ student.sID }}" disabled>
                         </div>
 
 
                         <div class="form-group col-md-9">
-                            <label for="Department" onload="dept_maping()">Department</label>
-                            <select name="dept" class="form-control" required="true"
+                            <label for="department" onload="dept_maping()">Department</label>
+                            <select name="department" od="department"class="form-control" required="true"
                                     {% if user.is_superuser == 0 %}disabled{% endif %}>
                                 <option value="def_dep" id="department">....</option>
+
                                 {% include 'fragment/dept_list.html' %}
+
                             </select>
                         </div>
 
@@ -255,8 +256,7 @@
 
                         <div class="form-group col-md-3">
                             <label for="shift">Shift*</label>
-                            <select name="shift" id="shift" class="form-control" required="true"
-                                    {% if user.is_superuser == 0 %}disabled{% endif %}>
+                            <select name="shift" id="shift" class="form-control" required="true" disabled>
                                 <option value="day">Day</option>
                                 <option value="evening">Evening</option>
                             </select>
@@ -316,7 +316,7 @@
                         <div class="form-group col-md-6 ">
                             <div class="alert btn-warning">
                                 <label for="t_shirt">Tshirt*</label>
-                                <select name="semester" class="form-control" required="true">
+                                <select id="t_shirt" name="t_shirt" class="form-control" required="true">
                                     {% include 'fragment/t_shirt_size_list.html' %}
                                 </select>
                             </div>
