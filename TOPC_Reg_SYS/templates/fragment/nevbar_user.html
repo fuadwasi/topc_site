@@ -15,12 +15,15 @@
                 <a class="nav-link" href={% url "ush" %}>Home <span class="sr-only">Home</span></a>
             </li>
 
-            <li class="nav-item active">
-                {#                    <a class="nav-link" href={% url "all_std" %}>All Students List</a>#}
-            </li>
-            <li class="nav-item active">
-                {#                    <a class="nav-link" href={% url "upload" %}>Upload Data</a>#}
-            </li>
+
+
+
+            {% if user.is_staff %}
+                {% include 'fragment/nevbar_admin.html' %}
+            {% endif %}
+
+
+
 
             <li class="nav-item ">
                 <a class="nav-link" href={% url "home" %}>Hello {{ user.username }}</a>
@@ -32,3 +35,27 @@
         </ul>
     </div>
 </nav>
+
+
+
+{#            {% if user.is_superuser %}#}
+{#                {% include 'fragment/nevbar_s_admin.html' %}#}
+{#            {% endif %}#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href={% url "add-student" %}>Add Student</a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href={% url "users" %}>Admin List</a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href={% url "signup" %}>Admin Registration</a>#}
+{#            </li>#}
+
+
+
+
+
+
+
+
+

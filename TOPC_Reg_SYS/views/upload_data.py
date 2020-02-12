@@ -37,30 +37,55 @@ def upload_data(request):
                     return redirect('upload')
                 data_set = csv_file.read().decode('UTF-8')
                 io_string = io.StringIO(data_set)
-                next(io_string)
+                # next(io_string)
+                flag = 1
                 for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+                    if flag == 1:
+                        sID = column[0].lower()
+                        name = column[1].lower()
+                        department = column[2].lower()
+                        campus = column[3].lower()
+                        semester = column[4].lower()
+                        section = column[5].lower()
+                        shift = column[6].lower()
+                        gender = column[7].lower()
+                        phone = column[8].lower()
+                        email = column[9].lower()
+                        if sID!='student_id' or name != 'name' or department!= 'department' or campus!= 'campus' or semester!='semester' or section!='section' or shift!='shift' or gender != 'gender' or phone!='phone' or email!='email':
+                            string = 'The column sequence is not correct. Plesase make sure columns are in this sequence: Student_id, Name, Department, Campus, Semester, Section, Shift, Gender, Phone, Email.'
+                            messages.error(request,string)
+                            return redirect('upload')
+                        else:
+                            flag = 0
+
+
                     sID=column[0]
                     check_std = ALLStudents.objects.filter(Q(sID__contains=sID))
                     if check_std:
                         update_std= ALLStudents.objects.get(sID=sID)
-                        update_std.email=column[7]
+                        update_std.department = column[2]
+                        update_std.campus = column[3]
                         update_std.semester = column[4]
                         update_std.section = column[5]
                         update_std.shift = column[6]
-                        update_std.regtiem= datetime.now()
+                        update_std.gender = column[7]
+                        update_std.phone = column[8]
+                        update_std.email = column[9]
                         update_std.save()
                     else:
 
                         new_std = ALLStudents.objects.create(
-                        sID = column[0],
-                        name 	= column[1],
-                        department = column[2],
-                        campus	= column[3],
-                        semester= column[4],
-                        section = column[5],
-                        shift 	= column[6],
-                        email 	= column[7],
-                        regtiem= datetime.now() )
+                            sID = column[0],
+                            name 	= column[1],
+                            department = column[2],
+                            campus	= column[3],
+                            semestr= column[4],
+                            section = column[5],
+                            shift	= column[6],
+                            gender	= column[7],
+                            phone	= column[8],
+                            email 	= column[9]
+                             )
                         new_std.save()
 
                 messages.error(request, "Data updated successfully")

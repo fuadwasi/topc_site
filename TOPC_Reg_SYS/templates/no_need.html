@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    {% if msg == 'Entry Succcessful' %}
+        <h4 class="alert alert-success">
+            <center>{{ msg }}</center>
+        </h4>
+    {% elif msg %}
+        <h4 class="alert alert-danger">{{ msg }}</h4>
+    {% endif %}
+
+    <div class="container">
+        <form method="post" id="register-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="u_name">Name</label>
+                <input type="text" name="u_name" class="form-control" id="u_name"
+                       value="{{ student.name }}"  {% if user.is_staff == 0 %}disabled{% endif %}>
+            </div>
+
+
+
+
+            <button type="submit" id="form-submit" class="btn btn-success">Submit</button>
+            <a class="btn btn-danger " href={% url "ush" %}>Cancel</a>
+
+
+        </form>
+
+
+        <div>
+
+
+        </div>
+
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{% endblock %}
