@@ -17,7 +17,7 @@ from django.db.models.functions import Now
 
 from TOPC_Reg_SYS.models import ALLStudents, RegStudents
 
-
+#  ......................  Showing the list of registered students ................
 def reg_std(request):
     if request.user.is_staff:
         if request.method == 'GET':
@@ -40,6 +40,11 @@ def reg_std(request):
     else:
         return redirect('usf')
 
+
+
+
+#  ......................  New Student registration ................
+
 def register(request,id):
     if request.user.is_authenticated:
         if request.method == 'GET':
@@ -53,19 +58,17 @@ def register(request,id):
         elif request.method == "POST":
 
             get_std = ALLStudents.objects.get(id=id)
-            if get_std.status!="Not_Registered":
-                string = "User already registered."
-                messages.success(request, string)
-                return redirect('ush')
 
-            shift = request.POST['shift']
-            sem = request.POST['sem']
-            sec = request.POST['sec']
+            # if get_std.status!="Not_Registered":
+            #     string = "User already registered."
+            #     messages.success(request, string)
+            #     return redirect('ush')
 
 
-            T_shirt = request.POST['T_shirt']
-            email = request.POST['email']
-            phone = request.POST['phone']
+
+            gender = request.POST['gender']
+            section = request.POST['section']
+
             regtiem = datetime.now()
             regby = request.user.username
             status = "Registered"

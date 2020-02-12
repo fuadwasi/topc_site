@@ -49,11 +49,12 @@
 
 <script>
     {#$('#kichu').onclick = function () {#}
-    window.onload = function () {
+    window.onload = function dept_maping() {
         {#document.getElementById("kichu").onclick = function () {#}
         {#document.getElementById("fuad").focus();#}
         var dept = "{{student.department}}";
         console.log("{{student.department}}");
+        {#console.log("kam kore");#}
         var dept_map = {
             "CSE": "COMPUTER SCIENCE & ENGINEERING",
             "SWE": "SOFTWARE ENGINEERING",

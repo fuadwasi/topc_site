@@ -32,7 +32,7 @@
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email1"
+            <input type="email" class="form-control" id="email"
                    placeholder="Email" name="email">
         </div>
         <h4 id='result'></h4>
@@ -51,7 +51,7 @@
 
             function validate() {
                 var $result = $("#result");
-                var email = $("#email1").val();
+                var email = $("#email").val();
                 $result.text("");
 
                 if (validateEmail(email)) {
@@ -64,7 +64,7 @@
                 return false;
             }
 
-            $("#email1").on('keyup', validate);
+            $("#email").on('keyup', validate);
         </script>
 
         {#        .........................Email Validity Check end........................#}
@@ -100,7 +100,7 @@
                     $('#message').html('Password did not match').css('color', 'red');
             });
         </script>
-        {#        .........................Email Validity Check end............................#}
+        {#        .........................Password Validity Check end............................#}
 
 
         <div class="form-group">

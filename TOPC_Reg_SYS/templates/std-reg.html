@@ -189,101 +189,147 @@
                 <a href="{% url 'upload' %}" class="btn btn-info ml-auto">Upload Data</a>
             </div>
         {% endif %}
+
         <div class="row mb-5">
             <div class="col-md-9 mx-auto">
                 <form method="post" id="register-form">
                     {% csrf_token %}
+                    <h6 id="result"></h6>
+                    <h6 id="result2"></h6>
                     <div class="row">
+
+
                         <div class="form-group col-md-12">
                             <label for="u_name">Name</label>
                             <input type="text" name="u_name" class="form-control" id="u_name"
                                    value="{{ student.name }}" {% if user.is_superuser == 0 %}disabled{% endif %}>
                         </div>
+
+
                         <div class="form-group col-md-12">
-                            <label for="sId">Student ID</label>
-                            <input type="text" class="form-control" id="sId" value="{{ student.sID }}" {% if user.is_superuser == 0 %}disabled{% endif %}>
+                            <label for="sId">Student ID*</label>
+                            <input type="text" class="form-control" id="sId" name="sId" value="{{ student.sID }}"
+                                   {% if user.is_superuser == 0 %}disabled{% endif %}>
                         </div>
+
+
                         <div class="form-group col-md-9">
-                            <label for="campus">Department</label>
-                            <select name="campus" class="form-control" required="true">
+                            <label for="Department" onload="dept_maping()">Department</label>
+                            <select name="dept" class="form-control" required="true"
+                                    {% if user.is_superuser == 0 %}disabled{% endif %}>
                                 <option value="def_dep" id="department">....</option>
                                 {% include 'fragment/dept_list.html' %}
-
                             </select>
                         </div>
-                        {% include 'fragment/department_map.html' %}
+
 
                         <div class="form-group col-md-3">
                             <label>Gender</label>
                             <select name="gender" required="true" class="form-control">
-                                <option value="Male">Male</option>
+
+                                <option value="{{ student.gender }}">{{ student.gender }}</option>
+
+                                {% if student.gender != 'Male' %}
+                                    <option value="Male">Male</option>
+                                {% endif %}
+
                                 <option value="Female">Female</option>
                                 <option value="Other">Other</option>
                             </select>
                         </div>
 
                         <div class="form-group col-md-3">
-                            <label for="campus">Campus</label>
-                            <select name="campus" class="form-control" required="true">
-                                <option value="UC">Uttara Campus</option>
-                                <option value="MC">Main Campus</option>
+                            <label for="campus">Campus*</label>
+                            <select name="campus" class="form-control" required="true"
+                                    {% if user.is_staff == 0 %}disabled{% endif %}>
+                                <option value="{{ student.campus }}">{{ student.campus }}</option>
+                                {% if student.campus != 'MC' %}
+                                    <option value="MC">MC</option>
+                                {% endif %}
+                                <option value="PC">PC</option>
+                                <option value="UC">UC</option>
+
                             </select>
                         </div>
 
 
                         <div class="form-group col-md-3">
-                            <label for="shift">Shift</label>
-                            <select name="shift" id="shift" class="form-control" required="true">
+                            <label for="shift">Shift*</label>
+                            <select name="shift" id="shift" class="form-control" required="true"
+                                    {% if user.is_superuser == 0 %}disabled{% endif %}>
                                 <option value="day">Day</option>
                                 <option value="evening">Evening</option>
                             </select>
                         </div>
+
+
                         <div class="form-group col-md-3">
-                            <label for="semester">Semester</label>
-                            <select name="semester" class="form-control" required="true">
+                            <label for="semester">Semester*</label>
+                            <select name="semester" class="form-control" required="true"{% if user.is_staff == 0 %}disabled{% endif %}>
                                 <option value="1st">1st Semester</option>
                                 <option value="2nd">2nd Semester</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="section">Section</label>
-                            <select name="section" id="section" class="form-control" required="true">
-                                <option value="def_sec">....</option>
-                                {% include 'fragment/section_list.html' %}
 
+
+                        <div class="form-group col-md-3">
+                            <label for="section">Section*</label>
+                            <select name="section" id="section" class="form-control" required="true">
+                                <option value="{{ student.section }}">{{ student.section }}</option>
+                                {% include 'fragment/section_list.html' %}
                             </select>
                         </div>
+
                         <div class="form-group col-md-6">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" value="{{ student.email }}">
+                            <label for="email1">Email</label>
+                            <input type="email" id="email1" class="form-control" value="{{ student.email }}" disabled>
                         </div>
+
+
                         <div class="form-group col-md-6">
                             <label for="email2">Email</label>
-                            <input type="email" class="form-control" id="email2" placeholder="Email" name="email2">
+                            <input type="email" id="email" class="form-control" placeholder="Secondary Email"
+                                   name="email2" {% if student.sec_email != 'none' %}
+                                   value="{{ student.sec_email }}"{% endif %}>
+
                         </div>
+                    {% include 'fragment/email_validate.html' %}
+
+
+
+
                         <div class="form-group col-md-6">
-                            <label for="phone">Phone No</label>
-                            <input type="text" class="form-control" id="phone" placeholder="Phone Number">
+                            <label for="phone1">Phone No</label>
+                            <input type="text" class="form-control" id="phone1" value="{{ student.phone }}" disabled>
                         </div>
+
+
                         <div class="form-group col-md-6">
-                            <label for="phone">Phone No</label>
-                            <input type="text" class="form-control" id="phone" placeholder="Phone Number">
+                            <label for="phone">Secondary Phone No</label>
+                            <input type="text" class="form-control" id="phone" name="phone2"
+                                   placeholder="Secondary Phone Number"{% if student.sec_phone != 'none' %}
+                                   value="{{ student.sec_phone }}"{% endif %}>
                         </div>
+                    {% include 'fragment/phone_validation.html' %}
+
+
                         <div class="form-group col-md-6 ">
                             <div class="alert btn-warning">
-                                <label for="semester">Tshirt</label>
+                                <label for="t_shirt">Tshirt*</label>
                                 <select name="semester" class="form-control" required="true">
-                                    <option value="M">M</option>
-                                    <option value="L">L</option>
-                                    <option value="XL">XL</option>
-                                    <option value="XXL">XXL</option>
-                                    <option value="XXXL">XXXL</option>
+                                    {% include 'fragment/t_shirt_size_list.html' %}
                                 </select>
                             </div>
                         </div>
 
+
                     </div>
-                    <button type="submit" id="form-submit" class="btn btn-success">Submit</button>
+                    {% if student.status == "Not_Registered" %}
+                        <button type="submit" id="form-submit" class="btn btn-success ">Submit</button>
+                    {% else %}
+                        <button type="submit" id="form-submit" class="btn btn-info ">Update</button>
+                    {% endif %}
+
                     <a class="btn btn-danger " href={% url "ush" %}>Cancel</a>
                 </form>
             </div>

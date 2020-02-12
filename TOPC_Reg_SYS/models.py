@@ -59,8 +59,8 @@ class Teacher_Info(models.Model):
     department = models.CharField(max_length=100)
     campus = models.CharField(max_length=100)
     shift = models.CharField(max_length=100, default="none")
-    email = models.CharField(max_length=100)
-    phone = models.CharField(max_length=100)
+    email = models.CharField(max_length=100, default="none")
+    phone = models.CharField(max_length=100, default="none")
 
     class Mate:
         db_table = "teacher_info"

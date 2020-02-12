@@ -1,0 +1,45 @@
+<script>
+
+    function validatephone(phone) {
+                var re = /^\d{11}$/;
+
+                {#console.log(phone);#}
+                return re.test(phone);
+            }
+
+            function validate() {
+                var $result = $("#result2");
+                var phone = $("#phone").val();
+                {#console.log(phone)#}
+                $result.text("");
+                {#console.log(phone[0]);#}
+                if(phone[0]!='0')
+                {
+                    $result.text(phone + " is not valid :(");
+                    $result.css("color", "red");
+                }
+
+                else if (validatephone(phone)) {
+                    $result.text(phone + " is valid phone no  :)");
+                    $result.css("color", "green");
+                } else {
+                    $result.text(phone + " is not valid phone no :(");
+                    $result.css("color", "red");
+                }
+                return false;
+            }
+
+            $("#phone").on('keyup', validate);
+</script>
+
+
+
+{#var phoneno = /^\d{10}$/;#}
+  {#if((inputtxt.value.match(phoneno)){#}
+  {#    return true;#}
+  {#      }#}
+  {#    else#}
+  {#      {#}
+  {#      alert("message");#}
+  {#      return false;#}
+  {#      }#}
