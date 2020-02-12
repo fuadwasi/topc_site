@@ -41,22 +41,43 @@ def upload_data(request):
                 flag = 1
                 for column in csv.reader(io_string, delimiter=',', quotechar="|"):
                     if flag == 1:
-                        sID = column[0].lower()
-                        name = column[1].lower()
-                        department = column[2].lower()
-                        campus = column[3].lower()
-                        semester = column[4].lower()
-                        section = column[5].lower()
-                        shift = column[6].lower()
-                        gender = column[7].lower()
-                        phone = column[8].lower()
-                        email = column[9].lower()
+                        #
+                        sID = column[0].lower().replace(" ", "")
+                        name = column[1].lower().replace(" ", "")
+                        department = column[2].lower().replace(" ", "")
+                        campus = column[3].lower().replace(" ", "")
+                        semester = column[4].lower().replace(" ", "")
+                        section = column[5].lower().replace(" ", "")
+                        shift = column[6].lower().replace(" ", "")
+                        gender = column[7].lower().replace(" ", "")
+                        phone = column[8].lower().replace(" ", "")
+                        email = column[9].lower().replace(" ", "")
+
                         if sID!='student_id' or name != 'name' or department!= 'department' or campus!= 'campus' or semester!='semester' or section!='section' or shift!='shift' or gender != 'gender' or phone!='phone' or email!='email':
                             string = 'The column sequence is not correct. Plesase make sure columns are in this sequence: Student_id, Name, Department, Campus, Semester, Section, Shift, Gender, Phone, Email.'
+                            str2 = sID+", "+name+", "+department+", "+campus+", "+semester+", "+section+", "+shift+", "+gender+", "+phone+", "+email
+                            return HttpResponse(str2)
                             messages.error(request,string)
                             return redirect('upload')
                         else:
                             flag = 0
+                            continue
+
+
+                        # if sID!='student_id' :
+                        #     str2 = sID
+                        # elif name != 'name' :
+                        #     str2 = name
+                        # elif department!= 'department' :
+                        #     str2 = department
+                        # elif campus!= 'campus' or semester!='semester' or section!='section' or shift!='shift' or gender != 'gender' or phone!='phone' or email!='email':
+                        #     string = 'The column sequence is not correct. Plesase make sure columns are in this sequence: Student_id, Name, Department, Campus, Semester, Section, Shift, Gender, Phone, Email.'
+                        #     str2 = campus+", "+semester+", "+section+", "+shift+", "+gender+", "+phone+", "+email
+                        # else:
+                        #     str2 ='all ok'
+                        # return HttpResponse(str2)
+                        # messages.error(request,string)
+                        # return redirect('upload')
 
 
                     sID=column[0]
@@ -79,7 +100,7 @@ def upload_data(request):
                             name 	= column[1],
                             department = column[2],
                             campus	= column[3],
-                            semestr= column[4],
+                            semester= column[4],
                             section = column[5],
                             shift	= column[6],
                             gender	= column[7],

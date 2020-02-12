@@ -1,0 +1,90 @@
+<script>
+    {#$('#kichu').onclick = function () {#}
+    window.onload = function () {
+        {#document.getElementById("kichu").onclick = function () {#}
+        {#    document.getElementById("fuad").focus();#}
+        var myShows = ['Bones', 'Psych', 'Big Bang Theory', 'Mad Men', 'Breaking Bad', 'Modern Family', 'Game of Thrones', 'Dexter'];
+        var show = myShows[Math.floor(Math.random() * myShows.length)];
+        $('#fuad').html(show).css('color', 'red');
+    };
+</script>
+
+
+{#<script>#}
+{#$('#kichu').onclick = function () {#}
+{#    window.onload = function dep_gen() {#}
+{#document.getElementById("kichu").onclick = function () {#}
+{#document.getElementById("fuad").focus();#}
+{#        var dept = {{student.department}};#}
+{#        var dept_map ={#}
+{#"SWE"			:"SOFTWARE ENGINEERING",#}
+{#"CIS"			:"COMPUTING & INFORMATION SYSTEM",#}
+{#"MCT"			:"MULTIMEDIA & CREATIVE TECHNOLOGY",#}
+{#"EEE"			:"ELECTRICAL & ELECTRONIC ENGINEERING",#}
+{#"ETE"			:"ELECTRONICS & TELECOMMUNICATION ENGINEERING",#}
+{#"ARCHITECTURE"	:"ARCHITECTURE",#}
+{#"BBA"			:"BUSINESS ADMINISTRATION",#}
+{#"BS"			:"BUSINESS STUDIES",#}
+{#"CE"			:"CIVIL ENGINEERING",#}
+{#"DS"			:"DEVELOPMENT STUDIES",#}
+{#"ENGLISH"		:"ENGLISH",#}
+{#"ESDM"			:"ENVIRONMENTAL SCIENCE AND DISASTER MANAGEMENT",#}
+{#"GED"			:"GENERAL EDUCATIONAL DEVELOPMENT",#}
+{#"ISL"			:"INFORMATION SCIENCE AND LIBRARY MANAGEMENT",#}
+{#"ITM"			:"INFORMATION TECHNOLOGY & MANAGEMENT",#}
+{#"IM"			:"INNOVATION & ENTREPRENEURSHIP",#}
+{#"JMC"			:"JOURNALISM & MASS COMMUNICATION",#}
+{#"LAW"			:"LAW",#}
+{#"NFE"			:"NUTRITION & FOOD ENGINEERING",#}
+{#"PHARMACY"		:"PHARMACY",#}
+{#"PH"			:"PUBLIC HEALTH",#}
+{#"RE"			:"REAL ESTATE",#}
+{#"TE"			:"TEXTILE ENGINEERING",#}
+{#"THM"			:"TOURISM & HOSPITALITY MANAGEMENT"};#}
+{#document.getElementById("department").innerHTML = dept_map[dept];#}
+{#        $('#department').html(dept_map[dept]).css('color', 'red');#}
+{#    };#}
+{#</script>#}
+
+
+<script>
+    {#$('#kichu').onclick = function () {#}
+    window.onload = function () {
+        {#document.getElementById("kichu").onclick = function () {#}
+        {#document.getElementById("fuad").focus();#}
+        var dept = "{{student.department}}";
+        console.log("{{student.department}}");
+        var dept_map = {
+            "CSE": "COMPUTER SCIENCE & ENGINEERING",
+            "SWE": "SOFTWARE ENGINEERING",
+            "CIS": "COMPUTING & INFORMATION SYSTEM",
+            "MCT": "MULTIMEDIA & CREATIVE TECHNOLOGY",
+            "EEE": "ELECTRICAL & ELECTRONIC ENGINEERING",
+            "ETE": "ELECTRONICS & TELECOMMUNICATION ENGINEERING",
+            "ARCHITECTURE": "ARCHITECTURE",
+            "BBA": "BUSINESS ADMINISTRATION",
+            "BS": "BUSINESS STUDIES",
+            "CE": "CIVIL ENGINEERING",
+            "DS": "DEVELOPMENT STUDIES",
+            "ENGLISH": "ENGLISH",
+            "ESDM": "ENVIRONMENTAL SCIENCE AND DISASTER MANAGEMENT",
+            "GED": "GENERAL EDUCATIONAL DEVELOPMENT",
+            "ISL": "INFORMATION SCIENCE AND LIBRARY MANAGEMENT",
+            "ITM": "INFORMATION TECHNOLOGY & MANAGEMENT",
+            "IM": "INNOVATION & ENTREPRENEURSHIP",
+            "JMC": "JOURNALISM & MASS COMMUNICATION",
+            "LAW": "LAW",
+            "NFE": "NUTRITION & FOOD ENGINEERING",
+            "PHARMACY": "PHARMACY",
+            "PH": "PUBLIC HEALTH",
+            "RE": "REAL ESTATE",
+            "TE": "TEXTILE ENGINEERING",
+            "THM": "TOURISM & HOSPITALITY MANAGEMENT"
+        };
+        document.getElementById("department").innerHTML = dept_map[dept];
+        {#$('#department').html(dept_map[dept]).css('color', 'red');#}
+    };
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
