@@ -25,10 +25,10 @@
                         </script>
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
-                    <h4 style="color: red" align="center">{{ msg }}</h4>
                 </div>
             </div>
-                {% include 'fragment/message_show.html' %}
+{#        <h3 style="color: #EF3B3A"><center> Registration Cancellation Request List</center></h3>#}
+            <h3 class="alert btn-danger active" ><center> Registration Cancellation Request List</center></h3>
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
@@ -42,16 +42,14 @@
                 <tbody>
                 {% for student in students %}
                     <tr>
-                        <td>{{ student.id }}</td>
-                        <td>{{ student.sID }}</td>
-                        <td>{{ student.name }}</td>
-                        <td>{{ student.status }}</td>
+                        <td>{{ student.token }}</td>
+                        <td>{{ student.req_info.sID }}</td>
+                        <td>{{ student.req_info.basic_info.name }}</td>
+                        <td>{{ student.req_by }}</td>
                         <td class="text-center mx-auto">
-                            {% if student.status == 'Not_Registered' %}
-                                <a href="/register/{{ student.id }}" class="btn  btn-success  ">Register</a>
-                            {% else %}
-                                <a class="btn btn-danger text-light disabled ">Already Registered</a>
-                            {% endif %}
+                        <a href="#" class="btn  btn-Danger  ">Approve</a>
+                        <a href="#" class="btn  btn-success  ">Cancel</a>
+
                         </td>
                     </tr>
                 {% endfor %}

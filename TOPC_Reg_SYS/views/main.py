@@ -12,8 +12,8 @@ from django.utils import timezone
 from datetime import datetime
 from django.db.models.functions import Now
 
-from TOPC_Reg_SYS.models import ALLStudents, RegStudents
-
+from TOPC_Reg_SYS.models import ALLStudents, RegStudents, Req_queuey
+request_count = Req_queuey.objects.all().count()
 
 # Create your views here.
 def home(request):
@@ -45,13 +45,18 @@ def login(request):
             messages.error(request, "Username and Password can't be empty")
             return redirect("login")
 
-        get_user = User.objects.filter(Q(username__exact=username))
+        chk_user = User.objects.filter(Q(username__exact=username))
 
-        if get_user:
+        if chk_user:
+            get_user = User.objects.get(Q(username__exact=username))
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                return redirect("ush")
+                messages.success(request,"Login Successful")
+                if get_user.is_superuser:
+                    return redirect('dashboard')
+                else:
+                    return redirect("ush")
             else:
                 messages.error(request, "Login Failed")
                 return redirect("login")
@@ -71,6 +76,7 @@ def ush(request):
         level = 0
         stdcount = RegStudents.objects.all().count()
         total_count = ALLStudents.objects.all().count()
+        # return HttpResponse(request_count)
         if request.user.is_superuser:
             level = 3
         elif request.user.is_staff:
@@ -79,7 +85,7 @@ def ush(request):
             level = 1
         if request.method == "GET":
 
-            context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user}
+            context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user,'request_count':request_count}
             return render(request, "user_home.html", context)
         elif request.method == "POST":
             sID = request.POST['search']
@@ -89,7 +95,7 @@ def ush(request):
             if sID == '%':
                 obj = ALLStudents.objects.all()
                 if obj:
-                    context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'students': obj, 'user': request.user}
+                    context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'students': obj, 'user': request.user,'request_count':request_count}
                     return render(request, "user_home.html", context)
                 else:
                     messages.success(request, "No Data Found")
@@ -98,13 +104,13 @@ def ush(request):
                 std = ALLStudents.objects.filter(Q(sID__contains=sID) | Q(name__contains=sID))
 
                 if std:
-                    context = {'level': level, 'stdcount': stdcount, 'students': std,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user}
+                    context = {'level': level, 'stdcount': stdcount, 'students': std,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user,'request_count':request_count}
                     return render(request, "user_home.html", context)
                 else:
                     messages.success(request, "No Data Found")
                     return redirect('ush')
             else:
-                context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user}
+                context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user,'request_count':request_count}
                 return render(request, "user_home.html", context)
     else:
         system_messages = messages.get_messages(request)
@@ -138,7 +144,7 @@ def users(request):
             if request.user.is_superuser:
                 level = 3
                 all_user = User.objects.filter(Q(username=username))
-        context = {'students': all_user, 'level': level, 'user': request.user}
+        context = {'students': all_user, 'level': level, 'user': request.user,'request_count':request_count}
         return render(request, 'users.html', context)
     else:
         return redirect("ush")

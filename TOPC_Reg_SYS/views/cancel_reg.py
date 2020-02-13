@@ -87,3 +87,23 @@ def cancel_request(request,id):
 
         messages.success(request,"You are not authenticated for this operation.")
         return redirect('home')
+
+def request_list(request):
+    if request.user.is_superuser:
+
+        students = Req_queuey.objects.all()
+        if request.method =="GET":
+            context= {'user':request.user,'students':students}
+
+        else:
+            key = request.POST['search']
+            students= Req_queuey.objects.filter(Q(token=key)|Q(req_info__sID__contains=key)|Q(req_info__basic_info__name__contains=key))
+            context= {'user':request.user,'students':students}
+        return render(request,'request_list.html',context)
+    else:
+        system_messages = messages.get_messages(request)
+        for message in system_messages:
+            # This iteration is necessary
+            pass
+        messages.error(request,"Access Denied")
+        return redirect('ush')

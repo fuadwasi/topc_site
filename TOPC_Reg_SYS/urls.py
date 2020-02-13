@@ -19,4 +19,5 @@ urlpatterns = [
     path('reg_std/', views.reg_std, name='reg_std'),
     path('register/<int:id>', views.register, name='register'),
     path('request/<int:id>', views.cancel_request, name='do_request'),
+    path('request_list/', views.request_list, name='request_list'),
 ]
