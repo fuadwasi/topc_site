@@ -54,29 +54,29 @@ def cancel_request(request,id):
                 email_body= 'Dear '+ req_student.name + '\n\n Your registration for Take-Off Programming Contest Spring 2020 has been canceled sucessfully. \n'
                 email_body+= 'Thanks for being with us\n\n With best regurds\nDIUCPC'
                 email_subject = "TOPC Spring 2020 Registration cancellation"
-                email_conf_send.email_send(['fuad15-9400@diu.edu.bd','erfanul15-10777@diu.edu.bd'],email_subject,email_body)
+                email_conf_send.email_send(['fhassanwasi@gmail.com','erfanul15-10777@diu.edu.bd'],email_subject,email_body)
                 messages.success(request,string)
                 return redirect('ush')
             else:
                 chk_queue= Req_queuey.objects.filter(token=req_student.token)
                 if chk_queue:
-                    str = "A request is alresdy pending for the id "+ req_student.sID+". Please wait till an admin approve it."
-                    messages.success(request,str)
+                    string1 = "A request is alresdy pending for the id "+ req_student.sID+". Please wait till an admin approve it."
+                    messages.success(request,string1)
                     return redirect('ush')
                 else:
                     student_cancel_request = Req_queuey.objects.create(token=req_student.token,req_by=request.user.username,req_info=registered_student)
                     student_cancel_request.save()
-                    str = "A request to cancel registration of Name: " +req_student.name+" ID: "+ req_student.sID + " has been sent to admin. Please wait till an admin approve it."
+                    string1 = "A request to cancel registration of Name: " +req_student.name+" ID: "+ req_student.sID + " has been sent to admin. Please wait till an admin approve it."
                     # email_conf_send(receiver_id,email_subject,email_body)
                     email_body = 'Dear ' + req_student.name + ',\n\n Your have requested us to cancel your registration for Take-Off Programming Contest Spring 2020.'
                     email_body += 'If you have not made requeat to cancel registration please contact in TOPC registration booth as soon as possible.\n\n'
                     email_body += 'Thanks for being with us\n\n With best regurds\nDIUCPC'
                     email_subject = "TOPC Spring 2020 Registration cancellation"
-                    email_conf_send.email_send(['fuad15-9400@diu.edu.bd', 'erfanul15-10777@diu.edu.bd'], email_subject,
+                    email_conf_send.email_send(['fhassanwasi@gmail.com', 'erfanul15-10777@diu.edu.bd'], email_subject,
                                                email_body)
 
 
-                    messages.success(request, str)
+                    messages.success(request, string1)
                     return  redirect('ush')
 
         else:
@@ -107,3 +107,20 @@ def request_list(request):
             pass
         messages.error(request,"Access Denied")
         return redirect('ush')
+
+
+def request_approve(request,id):
+    if request.user.is_superuser:
+        string='hi'
+        messages.success(request,string)
+        return redirect('request_list')
+    else:
+        return redirect('home')
+
+def request_cancel(request,id):
+    if request.user.is_superuser:
+        chk_std= Req_queuey.objects.filter(Q(token__exact=id))
+        if chk_std:
+            get_std = Req_queuey.objects.get(token=id)
+            get_std.delete()
+            string= ""

@@ -34,13 +34,14 @@ import smtplib
 #     return False
 #
 def email_send(receiver_id,email_subject,email_body):
+
     with smtplib.SMTP('smtp.gmail.com',587) as smtp:
         smtp.ehlo()
         smtp.starttls()
         smtp.ehlo()
 
-        smtp.login('fhassanwasi@gmail.com',settings.EMAIL_HOST_PASSWORD)
+        smtp.login(settings.EMAIL_HOST_USER,settings.EMAIL_HOST_PASSWORD)
         msg =f'Subject: {email_subject}\n\n {email_body}'
-        smtp.sendmail('fhassanwasi@gmail.com',receiver_id,msg)
+        smtp.sendmail(settings.EMAIL_HOST_USER,receiver_id,msg)
 
 

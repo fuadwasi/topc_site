@@ -120,15 +120,18 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 # ...................Sending email configurations:...................
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'mail.shakilahmed.com'
-# EMAIL_HOST_USER = 'fuad@shakilahmed.com'
-# EMAIL_HOST_PASSWORD = 'diu@123456'
-# EMAIT_PORT = 26
-
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'fhassanwasi@.com'
-EMAIL_HOST_PASSWORD = 'pwgfcczgdurtwnlo'
-EMAIT_PORT = 587
+EMAIL_HOST = 'mail.shakilahmed.com'
+EMAIL_HOST_USER = 'fuad@shakilahmed.com'
+EMAIL_HOST_PASSWORD = 'diu@123456'
+EMAIT_PORT = 26
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+#
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'fuad15-9400@diu.edu.bd'
+# EMAIL_HOST_PASSWORD = ''
+# EMAIT_PORT = 587
 
