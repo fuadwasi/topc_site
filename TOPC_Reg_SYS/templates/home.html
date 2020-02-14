@@ -113,7 +113,8 @@
         .tabl {
             margin-top: 1rem;
         }
-        #login_des{
+
+        #login_des {
             background-color: #ffee27;
             text-decoration-color: black;
         }
@@ -130,15 +131,9 @@
     </button>
     <div class="flex-row d-flex">
         <a class="navbar-brand mb-1" href="#">DIU</a>
-
     </div>
     <div class="navbar-collapse collapse" id="collapsingNavbar">
-
         <ul class="navbar-nav ml-auto">
-
-
-
-
             <li class="btn btn-primary" id="login_des">
                 <a class="text-light" href="/login/">Login</a>
             </li>
@@ -157,8 +152,12 @@
                     <div class="card card-inverse card-warning">
                         <div class="card-block text-light">
 
-                            <h1 class="text-uppercase "><center>Take Off Programming Contest</center></h1>
-                            <h3 class="text-uppercase"><center>Spring, 2020</center></h3>
+                            <h1 class="text-uppercase ">
+                                <center>Take Off Programming Contest</center>
+                            </h1>
+                            <h3 class="text-uppercase">
+                                <center>Spring, 2020</center>
+                            </h3>
                         </div>
                     </div>
                 </div>
@@ -188,30 +187,30 @@
 
         </div>
     </div>
-{# <h4 id="fuad"></h4>#}
-{#    <button id="kichu" type="submit">Click</button>#}
-{##}
-{#        <script>#}
-                            {#$('#kichu').onclick = function () {#}
-{#                            window.onload = function () {#}
-                            {#document.getElementById("kichu").onclick = function () {#}
-{#                                document.getElementById("fuad").focus();#}
-{#                                var myShows = ['Bones', 'Psych', 'Big Bang Theory', 'Mad Men', 'Breaking Bad', 'Modern Family', 'Game of Thrones', 'Dexter'];#}
-{#                                var show = myShows[Math.floor(Math.random() * myShows.length)];#}
-{#                                $('#fuad').html(show).css('color', 'red');#}
-{#                            };#}
-{#                        </script>#}
+    {# <h4 id="fuad"></h4>#}
+    {#    <button id="kichu" type="submit">Click</button>#}
+    {##}
+    {#        <script>#}
+    {#$('#kichu').onclick = function () {#}
+    {#                            window.onload = function () {#}
+    {#document.getElementById("kichu").onclick = function () {#}
+    {#                                document.getElementById("fuad").focus();#}
+    {#                                var myShows = ['Bones', 'Psych', 'Big Bang Theory', 'Mad Men', 'Breaking Bad', 'Modern Family', 'Game of Thrones', 'Dexter'];#}
+    {#                                var show = myShows[Math.floor(Math.random() * myShows.length)];#}
+    {#                                $('#fuad').html(show).css('color', 'red');#}
+    {#                            };#}
+    {#                        </script>#}
 
 
-{#    <script>#}
-{#            $('#kichu').on('click', function () {#}
-{#                var myShows = ['Bones', 'Psych', 'Big Bang Theory', 'Mad Men', 'Breaking Bad', 'Modern Family', 'Game of Thrones', 'Dexter'];#}
-{#                                var show = myShows[Math.floor(Math.random() * myShows.length)];#}
-{#                                $('#fuad').html(show).css('color', 'red');#}
-{#            });#}
-{#        </script>#}
+    {#    <script>#}
+    {#            $('#kichu').on('click', function () {#}
+    {#                var myShows = ['Bones', 'Psych', 'Big Bang Theory', 'Mad Men', 'Breaking Bad', 'Modern Family', 'Game of Thrones', 'Dexter'];#}
+    {#                                var show = myShows[Math.floor(Math.random() * myShows.length)];#}
+    {#                                $('#fuad').html(show).css('color', 'red');#}
+    {#            });#}
+    {#        </script>#}
 
-{% include 'fragment/message_show.html' %}
+    {% include 'fragment/message_show.html' %}
     <div class="table">
         <table class="table">
             <thead class="alert btn-info">
@@ -226,7 +225,7 @@
             <tbody>
             {% for student in students %}
                 <tr>
-                    <td>{{ student.id}}</td>
+                    <td>{{ student.id }}</td>
                     <td>{{ student.sID }}</td>
                     <td>{{ student.name }}</td>
                     <td>{{ student.status }}</td>
