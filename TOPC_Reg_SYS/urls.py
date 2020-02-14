@@ -23,4 +23,5 @@ urlpatterns = [
     path('request_approve/<int:id>', views.request_approve, name='request_approve'),
     path('request_cancel/<int:id>', views.request_cancel, name='request_cancel'),
     path('request_list/', views.request_list, name='request_list'),
+    path('rank_upload/', views.rank_upload, name='rank_upload'),
 ]

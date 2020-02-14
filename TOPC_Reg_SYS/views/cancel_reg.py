@@ -51,29 +51,30 @@ def cancel_request(request,id):
                 registered_student.delete()
                 req_student.save()
                 # email_conf_send(receiver_id,email_subject,email_body)
-                email_body= 'Dear '+ req_student.name + '\n\n Your registration for Take-Off Programming Contest Spring 2020 has been canceled sucessfully. \n'
+                email_body= 'Dear '+ req_student.name + '\n\nYour registration for Take-Off Programming Contest Spring 2020 has been canceled sucessfully. \n'
                 email_body+= 'Thanks for being with us\n\n With best regurds\nDIUCPC'
                 email_subject = "TOPC Spring 2020 Registration cancellation"
-                email_conf_send.email_send(['fhassanwasi@gmail.com','erfanul15-10777@diu.edu.bd'],email_subject,email_body)
+                email_conf_send.email_send(['fhassanwasi@gmail.com'],email_subject,email_body)
                 messages.success(request,string)
                 return redirect('ush')
             else:
+
                 chk_queue= Req_queuey.objects.filter(token=req_student.token)
                 if chk_queue:
                     string1 = "A request is alresdy pending for the id "+ req_student.sID+". Please wait till an admin approve it."
                     messages.success(request,string1)
                     return redirect('ush')
+
                 else:
                     student_cancel_request = Req_queuey.objects.create(token=req_student.token,req_by=request.user.username,req_info=registered_student)
                     student_cancel_request.save()
                     string1 = "A request to cancel registration of Name: " +req_student.name+" ID: "+ req_student.sID + " has been sent to admin. Please wait till an admin approve it."
                     # email_conf_send(receiver_id,email_subject,email_body)
-                    email_body = 'Dear ' + req_student.name + ',\n\n Your have requested us to cancel your registration for Take-Off Programming Contest Spring 2020.'
+                    email_body = 'Dear ' + req_student.name + ',\n\nYour have requested us to cancel your registration for Take-Off Programming Contest Spring 2020.'
                     email_body += 'If you have not made requeat to cancel registration please contact in TOPC registration booth as soon as possible.\n\n'
                     email_body += 'Thanks for being with us\n\n With best regurds\nDIUCPC'
-                    email_subject = "TOPC Spring 2020 Registration cancellation"
-                    email_conf_send.email_send(['fhassanwasi@gmail.com', 'erfanul15-10777@diu.edu.bd'], email_subject,
-                                               email_body)
+                    email_subject = "TOPC Spring 2020 Registration Cancellation Request Process"
+                    email_conf_send.email_send(['fhassanwasi@gmail.com'], email_subject,email_body)
 
 
                     messages.success(request, string1)
@@ -110,17 +111,73 @@ def request_list(request):
 
 
 def request_approve(request,id):
+    token = id
     if request.user.is_superuser:
-        string='hi'
-        messages.success(request,string)
-        return redirect('request_list')
+        chk_student = Req_queuey.objects.filter(token = token)
+        if chk_student:
+            req_student = ALLStudents.objects.get(token = token)
+            registered_student = RegStudents.objects.get(token__exact=req_student.token)
+            requested_std= Req_queuey.objects.get(token=token)
+            req_student.status = "Not_Registered"
+            string = "Registration of Token No: " + str(
+                req_student.token) + " Name: " + req_student.name + " ID: " + str(req_student.sID) + " has been canceled"
+            cancel_entry = Cancel_log.objects.create(
+                token=req_student.token 	,
+                sID		= req_student.sID 	  ,
+                email	= req_student.email	  ,
+                phone	= req_student.phone	  ,
+                req_time= requested_std.req_time,
+                req_by	= requested_std.req_by,
+                cancel_by= request.user.username
+            )
+            cancel_entry.save()
+            req_student.token = 99999
+            registered_student.delete()
+            req_student.save()
+            # email_conf_send(receiver_id,email_subject,email_body)
+            email_body= 'Dear  '+ req_student.name + '\n\nYour registration for Take-Off Programming Contest Spring 2020 has been canceled sucessfully. \n'
+            email_body+= 'Thanks for being with us\n\n With best regurds\nDIUCPC'
+            email_subject = "TOPC Spring 2020 Registration Canceled"
+            email_conf_send.email_send(['fhassanwasi@gmail.com', 'erfanul15-10777@diu.edu.bd'], email_subject, email_body)
+            messages.success(request,string)
+            return redirect('request_list')
+        else:
+            messages.success(request,"No request found")
+            return redirect('request_list')
     else:
-        return redirect('home')
+        messages.success(request,"Not authorized")
+        return redirect('ush')
+
+
+
+
+
+
+
+
+
 
 def request_cancel(request,id):
     if request.user.is_superuser:
         chk_std= Req_queuey.objects.filter(Q(token__exact=id))
         if chk_std:
-            get_std = Req_queuey.objects.get(token=id)
-            get_std.delete()
-            string= ""
+            req_student = Req_queuey.objects.get(token=id)
+            name = req_student.req_info.basic_info.name
+            string1 = "Registration cancellation request for Name: " + name + " ID: " + req_student.req_info.sID + " has been rejected."
+            # email_conf_send(receiver_id,email_subject,email_body)
+
+            email_body = 'Dear ' + name  + ',\n\nYour registration cancellation request for Take-Off Programming Contest Spring 2020.'
+            email_body += 'has been rejected by DIUCPC. If you have any query about it Please come to the registration booth\n\n'
+            email_body += 'Thanks for being with us\n\n With best regurds\nDIUCPC'
+            email_subject = "TOPC Spring 2020 Registration Cancellation Request Rejected"
+            email_conf_send.email_send(['fhassanwasi@gmail.com',], email_subject, email_body)
+
+            messages.success(request, string1)
+            req_student.delete()
+            return redirect('request_list')
+        else:
+            string1 ='No request found'
+            messages.success(request, string1)
+            return redirect('request_list')
+    else:
+        return  redirect('ush')

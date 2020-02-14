@@ -17,11 +17,37 @@ request_count = Req_queuey.objects.all().count()
 
 # Create your views here.
 def home(request):
-    if request.method == "GET":
-        if request.user.is_authenticated:
-            return redirect("ush")
-        else:
+
+    if request.user.is_authenticated:
+        return redirect("ush")
+    else:
+        if request.method == "GET":
             return render(request, 'home.html')
+
+        elif request.method == "POST":
+            sID = request.POST['search']
+
+            if sID == '%':
+                # obj = ALLStudents.objects.all()
+                # if obj:
+                #     context = {'students': obj}
+                #     return render(request, "home.html", context)
+                # else:
+                    messages.success(request, "No Data Found")
+                    return redirect('home')
+            elif sID != "":
+                obj= ALLStudents.objects.filter(Q(sID__contains=sID) | Q(name__contains=sID))
+
+                if obj:
+                    context = {'students': obj}
+                    return render(request, "home.html", context)
+                else:
+                    messages.success(request, "No Data Found")
+                    return redirect('home')
+            else:
+                messages.success(request, "No Data Entered")
+                return redirect('home')
+
 
 
 def login(request):

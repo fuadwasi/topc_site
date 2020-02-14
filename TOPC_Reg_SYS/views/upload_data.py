@@ -38,7 +38,9 @@ def upload_data(request):
                 data_set = csv_file.read().decode('UTF-8')
                 io_string = io.StringIO(data_set)
                 # next(io_string)
+
                 flag = 1
+
                 for column in csv.reader(io_string, delimiter=',', quotechar="|"):
                     if flag == 1:
                         #

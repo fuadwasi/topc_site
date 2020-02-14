@@ -139,7 +139,8 @@ def register(request,id):
             new_reg.userid="diu.topc.spr20."+ str(new_reg.id+1000)
             new_reg.save()
             string= "Registration of " + new_reg.basic_info.name + " successful.\n Details:\n Name: " + new_reg.basic_info.name + "\nStudent ID: "+ new_reg.basic_info.sID +"\nToken no: "+ str(new_reg.token)
-            email_body = 'Dear ' + get_std.name + '\n\n Your registration has been successfull for Take-Off Programming Contest, Spring 2020.'
+
+            email_body = 'Dear ' + get_std.name + ',\n\n Your registration has been successfull for Take-Off Programming Contest, Spring 2020.'
             email_body += 'Your registration details:\n\n'
             email_body += '\nName: '+ get_std.name
             email_body += '\nID: '+get_std.sID
@@ -149,9 +150,8 @@ def register(request,id):
             email_body += '\n\n\nIf you have any confusion please come to the registraion booth and let us know.'
             email_body += 'Thanks for being with us\n\n\n With best regurds\nDIUCPC'
 
-
-            email_subject = "TOPC Spring 2020 Registration cancellation"
-            email_conf_send.email_send(['fuad15-9400@diu.edu.bd','shakil15-9376@diu.edu.bd','erfanul15-10777@diu.edu.bd'], email_subject, email_body)
+            email_subject = "TOPC Spring 2020 Registration Confirmation"
+            email_conf_send.email_send(['fhassanwasi@gmail.com'], email_subject, email_body)
 
 
             messages.success(request,string)

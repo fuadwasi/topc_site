@@ -7,3 +7,4 @@ from .reg_std import *
 from .dashboard import *
 from .cancel_reg import *
 from .email_conf_send import *
+from .rank_upload import *

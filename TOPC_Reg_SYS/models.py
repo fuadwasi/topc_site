@@ -35,6 +35,7 @@ class RegStudents(models.Model):
     solve = models.IntegerField(default=99)
     penalty = models.IntegerField(default=99999)
     advance_camp = models.CharField(max_length=100, default="Pending")
+    viva_date = models.CharField(max_length=100, default="Pending")
     regby = models.CharField(max_length=100)
     regtiem = models.DateTimeField(auto_now_add=True)
     basic_info = models.OneToOneField(ALLStudents, on_delete=models.CASCADE)
@@ -86,6 +87,22 @@ class Cancel_log(models.Model):
 
     class Mate:
         db_table = "cancel_log"
+
+class Room_data(models.Model):
+    roon_no = models.CharField(max_length=30)
+    token_starts = models.IntegerField(default=99999)
+    token_ends = models.IntegerField(default=99999)
+    total_pcs = models.IntegerField(default=99999)
+    generated_by = models.CharField(max_length=100, default="none")
+    M_count = models.IntegerField(default=0)
+    L_count = models.IntegerField(default=0)
+    XL_count = models.IntegerField(default=0)
+    XXL_count = models.IntegerField(default=0)
+    XXXL_count = models.IntegerField(default=0)
+
+
+    class Mate:
+        db_table = "room_data"
 
 
 
