@@ -119,6 +119,22 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL= '/media/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
+
+
+
+
+
+
+
+
+
+
+
 # ...................Sending email configurations:...................
 EMAIL_USE_TLS = True
 # EMAIL_HOST = 'mail.shakilahmed.com'

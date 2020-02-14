@@ -22,7 +22,7 @@ def home(request):
         return redirect("ush")
     else:
         if request.method == "GET":
-            return render(request, 'home.html')
+            return render(request, 'index.html')
 
         elif request.method == "POST":
             sID = request.POST['search']
@@ -40,7 +40,7 @@ def home(request):
 
                 if obj:
                     context = {'students': obj}
-                    return render(request, "home.html", context)
+                    return render(request, "index.html", context)
                 else:
                     messages.success(request, "No Data Found")
                     return redirect('home')
