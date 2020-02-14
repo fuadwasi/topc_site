@@ -212,35 +212,30 @@
 {#        </script>#}
 
 {% include 'fragment/message_show.html' %}
-    <div class="tabl">
+    <div class="table">
         <table class="table">
-            <thead class="thead-dark">
+            <thead class="alert btn-info">
             <tr>
                 <th scope="col">SN</th>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Status</th>
-                {% if level > 0 %}
-                <th scope="col" class="text-center mx-auto">Action</th>
-                {% endif %}
+                <th scope="col">Token</th>
             </tr>
             </thead>
             <tbody>
             {% for student in students %}
                 <tr>
-                    <td>{{ student.id }}</td>
+                    <td>{{ student.id}}</td>
                     <td>{{ student.sID }}</td>
                     <td>{{ student.name }}</td>
                     <td>{{ student.status }}</td>
-                    <td class="text-center mx-auto">
-                    {% if level > 0 %}
-                        {% if student.status == 'not_taken' %}
-                            <a href="/register/{{ student.id }}" class="btn  btn-success  ">Register</a>
-                        {% else %}
-                            <a class="btn btn-danger text-light disabled ">Already Registered</a>
-                        {% endif %}
+                    {% if student.status == 'Registered' %}
+                        <td>{{ student.token }}</td>
+                    {% else %}
+                        <td>---------</td>
                     {% endif %}
-                    </td>
+
                 </tr>
             {% endfor %}
             </tbody>
