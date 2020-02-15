@@ -18,6 +18,7 @@ from django.db.models.functions import Now
 from TOPC_Reg_SYS.models import ALLStudents, RegStudents
 from . import email_conf_send
 
+
 # send_mail(email_subject,email_body,sender_id,receiver_id, fail_silently= False)
 
 
@@ -45,11 +46,9 @@ def reg_std(request):
         return redirect('usf')
 
 
-
-
 #  ......................  New Student registration ................
 
-def register(request,id):
+def register(request, id):
     if request.user.is_authenticated:
         if request.method == 'GET':
             students = ALLStudents.objects.filter(Q(id__exact=id))
@@ -58,7 +57,7 @@ def register(request,id):
                 context = {'student': get_std, 'user': request.user}
                 return render(request, 'std-reg.html', context)
             else:
-                messages.success(request,"No student Data Found")
+                messages.success(request, "No student Data Found")
         elif request.method == "POST":
             system_messages = messages.get_messages(request)
             for message in system_messages:
@@ -73,8 +72,6 @@ def register(request,id):
             #     messages.success(request, string)
             #     return redirect('ush')
 
-
-
             gender = request.POST['gender']
             section = request.POST['section']
             email2 = request.POST['email2']
@@ -84,8 +81,6 @@ def register(request,id):
             regby = request.user.username
             status = "Registered"
 
-
-
             # get_std.name = u_name
 
             get_std.gender = gender
@@ -94,22 +89,21 @@ def register(request,id):
             get_std.sec_phone = phone2
             get_std.save()
 
-            if get_std.status== 'Registered':
+            if get_std.status == 'Registered':
                 # up_sid = get_std.sID
                 update_std = RegStudents.objects.get(sID=get_std.sID)
-                update_std.t_shirt=t_shirt
-                string= "Data of "+get_std.name+" has beed updated successfully. Token no is"+ str(update_std.token)
+                update_std.t_shirt = t_shirt
+                string = "Data of " + get_std.name + " has beed updated successfully. Token no is" + str(
+                    update_std.token)
                 update_std.save()
-                messages.success(request,string)
+                messages.success(request, string)
                 return redirect('ush')
-
-
 
             if request.user.is_staff:
                 campus = request.POST['campus']
                 semester = request.POST['semester']
                 get_std.campus = campus
-                get_std.semester= semester
+                get_std.semester = semester
                 get_std.save()
 
             get_std.status = status
@@ -123,7 +117,7 @@ def register(request,id):
                 get_std.save()
 
             new_reg = RegStudents.objects.create(
-                sID		= get_std.sID 	  ,
+                sID	= get_std.sID 	  ,
                 t_shirt	= t_shirt ,
                 regby	= regby	  ,
                 basic_info = get_std
@@ -133,29 +127,29 @@ def register(request,id):
             # password ''.join(random.choice(letters) for i in range(stringLength))
             pass_gen =get_random_string(length=10, allowed_chars='QWERTYUIOPASDFGHJKLZXCVBNM123456789')
             new_reg.password = pass_gen
-            new_reg.token= new_reg.id+1000
-            get_std.token=new_reg.token
+            new_reg.token = new_reg.id + 1000
+            get_std.token = new_reg.token
             get_std.save()
-            new_reg.userid="diu.topc.spr20."+ str(new_reg.id+1000)
+            new_reg.userid = "diu.topc.spr20." + str(new_reg.id + 1000)
             new_reg.save()
-            string= "Registration of " + new_reg.basic_info.name + " successful.\n Details:\n Name: " + new_reg.basic_info.name + "\nStudent ID: "+ new_reg.basic_info.sID +"\nToken no: "+ str(new_reg.token)
+            string = "Registration of " + new_reg.basic_info.name + " successful.\n Details:\n Name: " + new_reg.basic_info.name + "\nStudent ID: " + new_reg.basic_info.sID + "\nToken no: " + str(
+                new_reg.token)
 
             email_body = 'Dear ' + get_std.name + ',\n\n Your registration has been successfull for Take-Off Programming Contest, Spring 2020.'
             email_body += 'Your registration details:\n\n'
-            email_body += '\nName: '+ get_std.name
-            email_body += '\nID: '+get_std.sID
-            email_body += '\nToken No: '+ str(get_std.token)
-            email_body += '\nT-Shirt Size: '+ new_reg.t_shirt
-            email_body += '\nRegistration on: '+str(new_reg.regtiem)
+            email_body += '\nName: ' + get_std.name
+            email_body += '\nID: ' + get_std.sID
+            email_body += '\nToken No: ' + str(get_std.token)
+            email_body += '\nT-Shirt Size: ' + new_reg.t_shirt
+            email_body += '\nRegistration on: ' + str(new_reg.regtiem)
             email_body += '\n\n\nIf you have any confusion please come to the registraion booth and let us know.'
             email_body += 'Thanks for being with us\n\n\n With best regurds\nDIUCPC'
 
             email_subject = "TOPC Spring 2020 Registration Confirmation"
             email_conf_send.email_send(['fhassanwasi@gmail.com'], email_subject, email_body)
 
-
-            messages.success(request,string)
+            messages.success(request, string)
             return redirect('ush')
 
     else:
-        return redirect('usf')
+        return redirect('ush')

@@ -146,8 +146,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 #
 # EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'fuad15-9400@diu.edu.bd'
-EMAIL_HOST_PASSWORD = 'Rafid159'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'fuad15-9400@diu.edu.bd'
+# EMAIL_HOST_PASSWORD = 'Rafid159'
+# EMAIT_PORT = 587
+
+
+EMAIL_HOST = 'mail.cpc.daffodilvarsity.edu.bd'
+EMAIL_HOST_USER = 'mail@cpc.daffodilvarsity.edu.bd'
+EMAIL_HOST_PASSWORD = 'winter_is_coming123'
 EMAIT_PORT = 587
 
