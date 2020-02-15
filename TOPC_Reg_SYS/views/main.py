@@ -13,11 +13,12 @@ from datetime import datetime
 from django.db.models.functions import Now
 
 from TOPC_Reg_SYS.models import ALLStudents, RegStudents, Req_queuey
+
 request_count = Req_queuey.objects.all().count()
+
 
 # Create your views here.
 def home(request):
-
     if request.user.is_authenticated:
         return redirect("ush")
     else:
@@ -33,10 +34,10 @@ def home(request):
                 #     context = {'students': obj}
                 #     return render(request, "home.html", context)
                 # else:
-                    messages.success(request, "No Data Found")
-                    return redirect('home')
+                messages.success(request, "No Data Found")
+                return redirect('home')
             elif sID != "":
-                obj= ALLStudents.objects.filter(Q(sID__contains=sID) | Q(name__contains=sID))
+                obj = ALLStudents.objects.filter(Q(sID__contains=sID) | Q(name__contains=sID))
 
                 if obj:
                     context = {'students': obj}
@@ -49,7 +50,6 @@ def home(request):
                 return redirect('home')
 
 
-
 def login(request):
     if request.method == "GET":
         if request.user.is_authenticated:
@@ -57,8 +57,6 @@ def login(request):
         else:
             return render(request, "login.html")
     elif request.method == "POST":
-
-
         system_messages = messages.get_messages(request)
         for message in system_messages:
             # This iteration is necessary
@@ -78,7 +76,7 @@ def login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                messages.success(request,"Login Successful")
+                messages.success(request, "Login Successful")
                 if get_user.is_superuser:
                     return redirect('dashboard')
                 else:
@@ -111,17 +109,20 @@ def ush(request):
             level = 1
         if request.method == "GET":
 
-            context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user,'request_count':request_count}
+            context = {'level': level, 'stdcount': stdcount, "total_count": total_count, "seat_avail": 300 - stdcount,
+                       'user': request.user, 'request_count': request_count}
             return render(request, "user_home.html", context)
         elif request.method == "POST":
             sID = request.POST['search']
-            if sID=='':
+            if sID == '':
                 messages.success(request, "No Data Entered")
                 return redirect('ush')
             if sID == '%':
                 obj = ALLStudents.objects.all()
                 if obj:
-                    context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'students': obj, 'user': request.user,'request_count':request_count}
+                    context = {'level': level, 'stdcount': stdcount, "total_count": total_count,
+                               "seat_avail": 300 - stdcount, 'students': obj, 'user': request.user,
+                               'request_count': request_count}
                     return render(request, "user_home.html", context)
                 else:
                     messages.success(request, "No Data Found")
@@ -130,13 +131,15 @@ def ush(request):
                 std = ALLStudents.objects.filter(Q(sID__contains=sID) | Q(name__contains=sID))
 
                 if std:
-                    context = {'level': level, 'stdcount': stdcount, 'students': std,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user,'request_count':request_count}
+                    context = {'level': level, 'stdcount': stdcount, 'students': std, "total_count": total_count,
+                               "seat_avail": 300 - stdcount, 'user': request.user, 'request_count': request_count}
                     return render(request, "user_home.html", context)
                 else:
                     messages.success(request, "No Data Found")
                     return redirect('ush')
             else:
-                context = {'level': level, 'stdcount': stdcount,"total_count":total_count,"seat_avail":300-stdcount, 'user': request.user,'request_count':request_count}
+                context = {'level': level, 'stdcount': stdcount, "total_count": total_count,
+                           "seat_avail": 300 - stdcount, 'user': request.user, 'request_count': request_count}
                 return render(request, "user_home.html", context)
     else:
         system_messages = messages.get_messages(request)
@@ -146,9 +149,6 @@ def ush(request):
         system_messages.used = True
         messages.error(request, "Please Login First")
         return redirect("login")
-
-
-
 
 
 def users(request):
@@ -170,7 +170,7 @@ def users(request):
             if request.user.is_superuser:
                 level = 3
                 all_user = User.objects.filter(Q(username=username))
-        context = {'students': all_user, 'level': level, 'user': request.user,'request_count':request_count}
+        context = {'students': all_user, 'level': level, 'user': request.user, 'request_count': request_count}
         return render(request, 'users.html', context)
     else:
         return redirect("ush")
