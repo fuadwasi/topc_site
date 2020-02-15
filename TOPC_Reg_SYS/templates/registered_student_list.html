@@ -3,85 +3,85 @@
 {% block body %}
     {% include 'fragment/message_show.html' %}
     <div class="container-fluid" id="main">
-    <div class="row row-offcanvas row-offcanvas-left">
+        <div class="row row-offcanvas row-offcanvas-left">
 
-        <!--/col-->
+            <!--/col-->
 
-        <div class="col-md-9 col-lg-10 main mx-auto">
+            <div class="col-md-9 col-lg-10 main mx-auto">
 
 
-            <!--/row-->
-            <div class="row my-5 mx-auto">
-                <div class="col-md-8">
-                    <form class="form-inline my-2 my-lg-0" method="post">
-                        {% csrf_token %}
-                        <input class="form-control mr-sm-2 w-75" type="search" placeholder="Enter ID or Name"
-                               aria-label="Search" name="search" id="search2">
-                        <script>
-                            window.onload = function () {
-                                document.getElementById("search2").focus();
-                            };
-                        </script>
+                <!--/row-->
+                <div class="row my-5 mx-auto">
+                    <div class="col-md-8">
+                        <form class="form-inline my-2 my-lg-0" method="post">
+                            {% csrf_token %}
+                            <input class="form-control mr-sm-2 w-75" type="search" placeholder="Enter ID or Name"
+                                   aria-label="Search" name="search" id="search2">
+                            <script>
+                                window.onload = function () {
+                                    document.getElementById("search2").focus();
+                                };
+                            </script>
 
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                    <h4>{{ msg }}</h4>
-                    <h4>{{ msg2 }}</h4>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
+
+                    <div class="col-md-4">
+                        <a class="btn btn-success " href={% url "all_std" %}>All Student List</a>
+                        <a class="btn btn-warning " href={% url "reg_std_download" %}>Download Data</a>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <a class="btn btn-info " href={% url "all_std" %}>All Student List</a>
-                </div>
-            </div>
 
-            <table class="table">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">SN</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Given By</th>
-                    <th scope="col">Time</th>
-                    {#                    <th scope="col" class="text-center mx-auto">Action</th>#}
-                </tr>
-                </thead>
-                <tbody>
 
-                {% for student in students %}
+                <table class="table">
+                    <thead class="alert btn-danger active">
                     <tr>
-                        {% if student.username != user %}
-                            <td>{{ student.id }}</td>
-
-
-                            <td>{{ student.sID }}</td>
-                            <td>{{ student.name }}</td>
-                            <td>{{ student.status }}</td>
-                            {% if student.status == "taken" %}
-                                <td>{{ student.givenby }}</td>
-                                <td>{{ student.created }}</td>
-                            {% else %}
-                                <td>{{ "----" }}</td>
-                                <td>{{ "----" }}</td>
-
-                            {% endif %}
-
-
-                            <td class="text-center mx-auto">
-                                {% if user.username == 'fuad' %}
-                                    <a href="/stat_reset/{{ student.id }}"
-                                       class="btn  btn-success {% if student.status == "not_taken" %} disabled{% endif %} "
-
-                                    >Reset</a>
-                                    <a href="/del_std/{{ student.id }}" class="btn  btn-danger ">Delete</a>
-                                {% endif %}
-
-                            </td>
-                        {% endif %}
+                        <th scope="col">Token</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Section</th>
+                        <th scope="col">T-Shirt</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Registered By</th>
+                        <th scope="col">Action</th>
+                        {#                    <th scope="col" class="text-center mx-auto">Action</th>#}
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+
+                    {% for student in students %}
+                        <tr>
+                                <td>{{ student.token }}</td>
+                                <td>{{ student.basic_info.sID }}</td>
+                                <td>{{ student.basic_info.name }}</td>
+                                <td>{{ student.basic_info.semester }}</td>
+                                <td>{{ student.basic_info.section }}</td>
+                                <td>{{ student.t_shirt }}</td>
+                                <td>{{ student.basic_info.phone }}  {{ student.basic_info.sec_phone }}</td>
+                                <td>{{ student.basic_info.email }}</td>
+                                <td>{{ student.regby }}</td>
+{#                                <td>{{ student.basic_info.name }}</td>#}
+{#                                <td>{{ student.basic_info.name }}</td>#}
+{#                                <td>{{ student.basic_info.name }}</td>#}
+{#                                <td>{{ student.basic_info.name }}</td>#}
+{#                                <td>{{ student.basic_info.name }}</td>#}
+
+
+                                <td class="text-center mx-auto">
+                                        <a href="/register/{{ student.id }}"
+                                           class="btn  btn-info ">Update</a>
+{#                                        <a href="/del_std/{{ student.id }}" class="btn  btn-warning">Email</a> #}
+                                    <a href="#" class="btn  btn-warning">Email</a>
+                                </td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}

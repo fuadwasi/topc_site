@@ -24,4 +24,5 @@ urlpatterns = [
     path('request_cancel/<int:id>', views.request_cancel, name='request_cancel'),
     path('request_list/', views.request_list, name='request_list'),
     path('rank_upload/', views.rank_upload, name='rank_upload'),
+    path('reg_std_download/', views.reg_std_download, name='reg_std_download'),
 ]
