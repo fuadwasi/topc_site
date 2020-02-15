@@ -76,10 +76,16 @@ WSGI_APPLICATION = 'TOPC_MS.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "cpc_topc_ms",
+        'USER': 'root',
+        'PASSWORD':'',
+        'HOST':'localhost',
+        'PORT': '3306'
+
     }
 }
+
 
 
 # Password validation
@@ -144,16 +150,16 @@ EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
-#
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'fuad15-9400@diu.edu.bd'
-# EMAIL_HOST_PASSWORD = 'Rafid159'
-# EMAIT_PORT = 587
 
-
-EMAIL_HOST = 'mail.cpc.daffodilvarsity.edu.bd'
-EMAIL_HOST_USER = 'mail@cpc.daffodilvarsity.edu.bd'
-EMAIL_HOST_PASSWORD = 'winter_is_coming123'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'fuad15-9400@diu.edu.bd'
+EMAIL_HOST_PASSWORD = 'Rafid159'
 EMAIT_PORT = 587
+
+
+# EMAIL_HOST = 'mail.cpc.daffodilvarsity.edu.bd'
+# EMAIL_HOST_USER = 'mail@cpc.daffodilvarsity.edu.bd'
+# EMAIL_HOST_PASSWORD = ''
+# EMAIT_PORT = 465
 

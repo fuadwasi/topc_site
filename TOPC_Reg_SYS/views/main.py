@@ -14,11 +14,12 @@ from django.db.models.functions import Now
 
 from TOPC_Reg_SYS.models import ALLStudents, RegStudents, Req_queuey
 
-request_count = Req_queuey.objects.all().count()
+
 
 
 # Create your views here.
 def home(request):
+    request_count = Req_queuey.objects.all().count()
     if request.user.is_authenticated:
         return redirect("ush")
     else:
@@ -51,6 +52,7 @@ def home(request):
 
 
 def login(request):
+    request_count = Req_queuey.objects.all().count()
     if request.method == "GET":
         if request.user.is_authenticated:
             return redirect("ush")
@@ -76,7 +78,7 @@ def login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                messages.success(request, "Login Successful")
+                # messages.success(request, "Login Successful")
                 if get_user.is_superuser:
                     return redirect('dashboard')
                 else:
@@ -96,6 +98,7 @@ def user_logout(request):
 
 
 def ush(request):
+    request_count = Req_queuey.objects.all().count()
     if request.user.is_authenticated:
         level = 0
         stdcount = RegStudents.objects.all().count()
@@ -152,6 +155,7 @@ def ush(request):
 
 
 def users(request):
+    request_count = Req_queuey.objects.all().count()
     if request.user.is_staff:
         level = 0
         stdcount = RegStudents.objects.all().count()
@@ -177,6 +181,7 @@ def users(request):
 
 
 def delete_user(request, id):
+    request_count = Req_queuey.objects.all().count()
     system_messages = messages.get_messages(request)
     for message in system_messages:
         # This iteration is necessary

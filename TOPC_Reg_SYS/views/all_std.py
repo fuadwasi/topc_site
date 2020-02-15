@@ -4,13 +4,14 @@ from django.shortcuts import render, redirect
 
 from TOPC_Reg_SYS.models import ALLStudents, Req_queuey
 
-request_count = Req_queuey.objects.all().count()
+
 
 
 # ,'request_count':request_count
 
 
 def all_std(request):
+    request_count = Req_queuey.objects.all().count()
     if request.user.is_staff:
         if request.method == 'GET':
             students = ALLStudents.objects.all()
