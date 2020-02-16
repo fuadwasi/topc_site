@@ -111,10 +111,10 @@
                         <img src="https://image.flaticon.com/icons/svg/1419/1419213.svg" alt=""
                              class="WeatherWidget-primaryIcon"/>
 
-                        <h2 class="Widget-headline">58&deg;</h2>
+                        <h2 class="Widget-headline">{{total_std_count}}</h2>
                     </header>
                     <div class="Widget-body">
-                        <p>Wear a light jacket.<br/>You might end up carrying it.</p>
+                        <p>Approximate Students Count</p>
                     </div>
                 </section>
             </div>
@@ -124,10 +124,10 @@
                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-80/sun.svg" alt=""
                              class="WeatherWidget-primaryIcon"/>
 
-                        <h2 class="Widget-headline">58&deg;</h2>
+                        <h2 class="Widget-headline">{{total_reg_count}}</h2>
                     </header>
                     <div class="Widget-body">
-                        <p>Wear a light jacket.<br/>You might end up carrying it.</p>
+                        <p>Total Registered Students</p>
                     </div>
                 </section>
             </div>
@@ -137,10 +137,10 @@
                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-80/sun.svg" alt=""
                              class="WeatherWidget-primaryIcon"/>
 
-                        <h2 class="Widget-headline">58&deg;</h2>
+                        <h2 class="Widget-headline">{{seat_available}}</h2>
                     </header>
                     <div class="Widget-body">
-                        <p>Wear a light jacket.<br/>You might end up carrying it.</p>
+                        <p>Seat Available</p>
                     </div>
                 </section>
             </div>
@@ -186,10 +186,10 @@
         function drawDeptChart() {
             var data = google.visualization.arrayToDataTable([
                 ["Department", "Count", {role: "style"}],
-                ["CSE", 200, "#00e878"],
-                ["SWE", 70, "silver"],
-                ["CIS", 50, "gold"],
-                ["Others", 60, "color: #e5e4e2"]
+                ["CSE", {{cse}}, "#00e878"],
+                ["SWE", {{swe}}, "silver"],
+                ["CIS", {{ cis }}, "gold"],
+                ["Others", {{ other_dept }}, "color: #e5e4e2"]
             ]);
 
             var view = new google.visualization.DataView(data);
@@ -209,6 +209,7 @@
                 bar: {groupWidth: "95%"},
                 legend: {position: "none"},
             };
+            {#var chart = new google.visualization.ColumnChart(document.getElementById("dept"));#}
             var chart = new google.visualization.ColumnChart(document.getElementById("dept"));
             chart.draw(view, options);
         }
@@ -216,8 +217,8 @@
         function drawGenderChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Dept', 'Count'],
-                ['Male', 1],
-                ['Female', 4],
+                ['Male', {{ male }}],
+                ['Female', {{ female }}],
             ]);
 
             var options = {
@@ -236,8 +237,8 @@
         function drawCampusChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Campus', 'Count'],
-                ['Main', 1],
-                ['Uttara', 4],
+                ['Main', {{main_campus}}],
+                ['Uttara', {{ uttara_camp }}],
             ]);
 
             var options = {
@@ -257,8 +258,8 @@
         function drawShiftChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Shift', 'Count'],
-                ['Day', 250],
-                ['Evening', 70],
+                ['Day', {{day}}],
+                ['Evening', {{evening}}],
             ]);
 
             var options = {
@@ -278,12 +279,12 @@
         function drawTshirtChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Tshirt', 'Count'],
-                ['S', 25],
-                ['M', 50],
-                ['L', 40],
-                ['XL', 30],
-                ['XXL', 20],
-                ['XXXL', 10],
+
+                ['M', {{ m_size }}],
+                ['L', {{ l_size }}],
+                ['XL', {{ xl_size }}],
+                ['XXL', {{ xxl_size }}],
+                ['XXXL', {{ xxxl_size }}],
             ]);
 
             var options = {
