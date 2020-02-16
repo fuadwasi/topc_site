@@ -146,7 +146,7 @@ def register(request, id):
             email_body += 'Thanks for being with us\n\n\n With best regurds\nDIUCPC'
 
             email_subject = "TOPC Spring 2020 Registration Confirmation"
-            email_conf_send.email_send(['fhassanwasi@gmail.com'], email_subject, email_body)
+            email_conf_send.email_send([get_std.email,get_std.sec_email], email_subject, email_body)
 
             messages.success(request, string)
             return redirect('ush')

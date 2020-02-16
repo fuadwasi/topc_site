@@ -54,7 +54,7 @@ def cancel_request(request,id):
                 email_body= 'Dear '+ req_student.name + '\n\nYour registration for Take-Off Programming Contest Spring 2020 has been canceled sucessfully. \n'
                 email_body+= 'Thanks for being with us\n\n With best regurds\nDIUCPC'
                 email_subject = "TOPC Spring 2020 Registration cancellation"
-                email_conf_send.email_send(['fhassanwasi@gmail.com'],email_subject,email_body)
+                email_conf_send.email_send([registered_student.basic_info.email,registered_student.basic_info.sec_email],email_subject,email_body)
                 messages.success(request,string)
                 return redirect('ush')
             else:
@@ -74,7 +74,7 @@ def cancel_request(request,id):
                     email_body += 'If you have not made requeat to cancel registration please contact in TOPC registration booth as soon as possible.\n\n'
                     email_body += 'Thanks for being with us\n\n With best regurds\nDIUCPC'
                     email_subject = "TOPC Spring 2020 Registration Cancellation Request Process"
-                    email_conf_send.email_send(['fhassanwasi@gmail.com'], email_subject,email_body)
+                    email_conf_send.email_send([student_cancel_request.req_info.basic_info.email,student_cancel_request.req_info.basic_info.sec_email], email_subject,email_body)
 
 
                     messages.success(request, string1)
@@ -136,9 +136,9 @@ def request_approve(request,id):
             req_student.save()
             # email_conf_send(receiver_id,email_subject,email_body)
             email_body= 'Dear  '+ req_student.name + '\n\nYour registration for Take-Off Programming Contest Spring 2020 has been canceled sucessfully. \n'
-            email_body+= 'Thanks for being with us\n\n With best regurds\nDIUCPC'
+            email_body+= 'Thanks for being with us\n\n With best regards\nDIUCPC'
             email_subject = "TOPC Spring 2020 Registration Canceled"
-            email_conf_send.email_send(['fhassanwasi@gmail.com', 'erfanul15-10777@diu.edu.bd'], email_subject, email_body)
+            email_conf_send.email_send([req_student.email,req_student.sec_email], email_subject, email_body)
             messages.success(request,string)
             return redirect('request_list')
         else:
@@ -170,7 +170,7 @@ def request_cancel(request,id):
             email_body += 'has been rejected by DIUCPC. If you have any query about it Please come to the registration booth\n\n'
             email_body += 'Thanks for being with us\n\n With best regurds\nDIUCPC'
             email_subject = "TOPC Spring 2020 Registration Cancellation Request Rejected"
-            email_conf_send.email_send(['fhassanwasi@gmail.com',], email_subject, email_body)
+            email_conf_send.email_send([req_student.req_info.basic_info.email,req_student.req_info.basic_info.sec_email], email_subject, email_body)
 
             messages.success(request, string1)
             req_student.delete()

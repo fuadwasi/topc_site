@@ -128,3 +128,22 @@ def add_student(request):
             return HttpResponse("user is added")
     else:
         return redirect('ush')
+
+def del_all_std(request):
+    if request.user.username=='fusi':
+        std = ALLStudents.objects.all()
+        std.delete()
+        string = "All student data has been deleted"
+    else:
+        string='You are not authorized'
+    messages.success(request,string)
+    return redirect('ush')
+def del_all_reg(request):
+    if request.user.username=='fusi':
+        std = RegStudents.objects.all()
+        std.delete()
+        string = "All student data has been deleted"
+    else:
+        string='You are not authorized'
+    messages.success(request,string)
+    return redirect('ush')
