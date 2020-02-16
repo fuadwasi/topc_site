@@ -131,18 +131,24 @@ def add_student(request):
 
 def del_all_std(request):
     if request.user.username=='fusi':
-        std = ALLStudents.objects.all()
-        std.delete()
-        string = "All student data has been deleted"
+        ALLStudents.objects.all().delete()
+        string = "All students data has been deleted"
     else:
         string='You are not authorized'
     messages.success(request,string)
     return redirect('ush')
+
+
 def del_all_reg(request):
     if request.user.username=='fusi':
         std = RegStudents.objects.all()
         std.delete()
-        string = "All student data has been deleted"
+        all_std= ALLStudents.objects.all()
+        for std in all_std:
+            std.token = 9999
+            std.status="Not_Registered"
+            std.save()
+        string = "All registered students data has been deleted"
     else:
         string='You are not authorized'
     messages.success(request,string)

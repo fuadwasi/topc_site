@@ -26,5 +26,5 @@ urlpatterns = [
     path('rank_upload/', views.rank_upload, name='rank_upload'),
     path('reg_std_download/', views.reg_std_download, name='reg_std_download'),
     path('del_all_reg/', views.del_all_reg, name='del_all_reg'),
-    path('del_all_std/', views.del_all_reg, name='del_all_std'),
+    path('del_all_std/', views.del_all_std, name='del_all_std'),
 ]

@@ -35,7 +35,7 @@ import smtplib
 #
 def email_send(receiver_id,email_subject,email_body):
 
-    with smtplib.SMTP('smtp.gmail.com',587) as smtp:
+    with smtplib.SMTP(settings.EMAIL_HOST,settings.EMAIT_PORT) as smtp:
         smtp.ehlo()
         smtp.starttls()
         smtp.ehlo()

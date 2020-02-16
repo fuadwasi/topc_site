@@ -142,7 +142,7 @@ STATICFILES_DIRS = [
 
 
 # ...................Sending email configurations:...................
-EMAIL_USE_TLS = True
+# EMAIL_USE_TLS = True
 # EMAIL_HOST = 'mail.shakilahmed.com'
 # EMAIL_HOST_USER = 'fuad@shakilahmed.com'
 # EMAIL_HOST_PASSWORD = 'diu@123456'
@@ -154,7 +154,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'fuad15-9400@diu.edu.bd'
-EMAIL_HOST_PASSWORD = 'Rafid159'
+EMAIL_HOST_PASSWORD = ''
 EMAIT_PORT = 587
 
 
