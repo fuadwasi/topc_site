@@ -1,6 +1,8 @@
 from django.urls import path
 
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
 
@@ -27,4 +29,4 @@ urlpatterns = [
     path('reg_std_download/', views.reg_std_download, name='reg_std_download'),
     path('del_all_reg/', views.del_all_reg, name='del_all_reg'),
     path('del_all_std/', views.del_all_std, name='del_all_std'),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
