@@ -77,7 +77,7 @@ def signup(request):
                     email_body += 'Your account details:\n\n'
                     email_body += '\nName: ' + new_user.first_name
                     email_body += '\nUsername: ' + new_user.username
-                    email_body += '\nPassword: ' + new_user.password
+                    email_body += '\nPassword: ' + password
                     email_body += '\nAuthentication Level: ' + u_level
                     email_body += '\n\n\nThanks for being with us.\n\n\n With best regurds\nDIUCPC'
 
