@@ -19,17 +19,24 @@ from TOPC_Reg_SYS.models import ALLStudents, RegStudents
 from . import email_conf_send
 
 def reg_std_download(request):
-    students = RegStudents.objects.all()
-    response = HttpResponse(content_type='text/csv')
-    dt= datetime.now()
+    if request.user.is_superuser:
+        students = RegStudents.objects.all()
+        response = HttpResponse(content_type='text/csv')
+        dt = datetime.now()
 
-    response['Content-Disposition'] = 'attachment; filename="TOPC_Spring20_Reg_Student_List_{}.csv"'.format(dt)
-    writer = csv.writer(response, delimiter=',')
-    writer.writerow(['Token NO','ID','Name','Semester','Section','Department','Campus','Phone','Secondary_Phone','Email','Secondary_Email','Room No','Pc','T_shirt','Username','Password'])
-    for obj in students:
-        writer.writerow([obj.token,obj.sID,obj.basic_info.name,obj.basic_info.section,
-                         obj.basic_info.semester,obj.basic_info.department,obj.basic_info.campus,
-                         obj.basic_info.phone,obj.basic_info.sec_phone,obj.basic_info.email,
-                         obj.basic_info.sec_email,obj.room,obj.pc_no,obj.t_shirt,obj.userid,obj.password])
+        response['Content-Disposition'] = 'attachment; filename="TOPC_Spring20_Reg_Student_List_{}.csv"'.format(dt)
+        writer = csv.writer(response, delimiter=',')
+        writer.writerow(
+            ['Token NO', 'ID', 'Name', 'Semester', 'Section', 'Department', 'Campus', 'Phone', 'Secondary_Phone',
+             'Email', 'Secondary_Email', 'Room No', 'Pc', 'T_shirt', 'Username', 'Password'])
+        for obj in students:
+            writer.writerow([obj.token, obj.sID, obj.basic_info.name, obj.basic_info.section,
+                             obj.basic_info.semester, obj.basic_info.department, obj.basic_info.campus,
+                             obj.basic_info.phone, obj.basic_info.sec_phone, obj.basic_info.email,
+                             obj.basic_info.sec_email, obj.room, obj.pc_no, obj.t_shirt, obj.userid, obj.password])
 
-    return response
+        return response
+    else:
+        string = "Access Denied"
+        messages.success(request,string)
+        return redirect('ush')

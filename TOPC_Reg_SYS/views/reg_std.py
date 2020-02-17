@@ -24,7 +24,7 @@ from . import email_conf_send
 
 #  ......................  Showing the list of registered students ................
 def reg_std(request):
-    if request.user.is_staff:
+    if request.user.is_superuser:
         if request.method == 'GET':
             students = RegStudents.objects.all()
             context = {'students': students, 'user': request.user}
@@ -43,7 +43,7 @@ def reg_std(request):
                 messages.success(request, "Enter a valid user name or ID")
                 return redirect('reg_std')
     else:
-        return redirect('usf')
+        return redirect('ush')
 
 
 #  ......................  New Student registration ................
