@@ -184,12 +184,14 @@
 
 {% block body %}
     <div class="container">
-{#        {% if user.is_superuser %}#}
-{#            <div class="row">#}
-{#                <a href="{% url 'upload' %}" class="btn btn-info ml-auto">Upload Data</a>#}
-{#            </div>#}
-{#        {% endif %}#}
+        {#        {% if user.is_superuser %}#}
+        {#            <div class="row">#}
+        {#                <a href="{% url 'upload' %}" class="btn btn-info ml-auto">Upload Data</a>#}
+        {#            </div>#}
+        {#        {% endif %}#}
 
+
+{#    <h1>{{ get_reg_std.t_shirt }}</h1>#}
         <div class="row mb-5">
             <div class="col-md-9 mx-auto">
                 <form method="post" id="register-form">
@@ -208,13 +210,14 @@
 
                         <div class="form-group col-md-12">
                             <label for="sId">Student ID*</label>
-                            <input type="text" class="form-control" id="sId" name="sId" value="{{ student.sID }}" disabled>
+                            <input type="text" class="form-control" id="sId" name="sId" value="{{ student.sID }}"
+                                   disabled>
                         </div>
 
 
                         <div class="form-group col-md-9">
                             <label for="department" onload="dept_maping()">Department</label>
-                            <select name="department" od="department"class="form-control" required="true"
+                            <select name="department" od="department" class="form-control" required="true"
                                     {% if user.is_superuser == 0 %}disabled{% endif %}>
                                 <option value="def_dep" id="department">....</option>
 
@@ -257,7 +260,11 @@
                         <div class="form-group col-md-3">
                             <label for="shift">Shift*</label>
                             <select name="shift" id="shift" class="form-control" required="true" disabled>
-                                <option value="day">Day</option>
+                                <option value="{{ student.shift }}">{{ student.shift }}</option>
+                                {% if student.shift != 'Day' %}
+                                    <option value="day">Day</option>
+                                {% endif %}
+
                                 <option value="evening">Evening</option>
                             </select>
                         </div>
@@ -265,9 +272,13 @@
 
                         <div class="form-group col-md-3">
                             <label for="semester">Semester*</label>
-                            <select name="semester" class="form-control" required="true"{% if user.is_staff == 0 %}disabled{% endif %}>
-                                <option value="1st">1st Semester</option>
-                                <option value="2nd">2nd Semester</option>
+                            <select name="semester" class="form-control" required="true"
+                                    {% if user.is_staff == 0 %}disabled{% endif %}>
+                                <option value="{{ student.semester }}">{{ student.semester }}</option>
+                                {% if student.semester != '1st' %}
+                                    <option value="1st">1st</option>
+                                {% endif %}
+                                <option value="2nd">2nd</option>
                             </select>
                         </div>
 
@@ -293,9 +304,7 @@
                                    value="{{ student.sec_email }}"{% endif %}>
 
                         </div>
-                    {% include 'fragment/email_validate.html' %}
-
-
+                        {% include 'fragment/email_validate.html' %}
 
 
                         <div class="form-group col-md-6">
@@ -310,17 +319,23 @@
                                    placeholder="Secondary Phone Number"{% if student.sec_phone != 'none' %}
                                    value="{{ student.sec_phone }}"{% endif %}>
                         </div>
-                    {% include 'fragment/phone_validation.html' %}
+                        {% include 'fragment/phone_validation.html' %}
 
 
                         <div class="form-group col-md-6 ">
                             <div class="alert btn-warning">
                                 <label for="t_shirt">Tshirt*</label>
                                 <select id="t_shirt" name="t_shirt" class="form-control" required="true">
+
+                                    {% if student.status == "Registered" %}
+                                        <option value="{{ get_reg_std.t_shirt }}">{{ get_reg_std.t_shirt }}</option>
+                                    {% endif %}
+
                                     {% include 'fragment/t_shirt_size_list.html' %}
                                 </select>
                             </div>
                         </div>
+
 
 
                     </div>

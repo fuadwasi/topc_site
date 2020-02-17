@@ -35,7 +35,7 @@
 
 
                 <table class="table">
-                    <thead class="alert btn-danger active">
+                    <thead class="alert btn-info active">
                     <tr>
                         <th scope="col">Token</th>
                         <th scope="col">ID</th>
@@ -46,7 +46,7 @@
                         <th scope="col">Phone</th>
                         <th scope="col">Email</th>
                         <th scope="col">Registered By</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Registration Time</th>
                         {#                    <th scope="col" class="text-center mx-auto">Action</th>#}
                     </tr>
                     </thead>
@@ -54,28 +54,22 @@
 
                     {% for student in students %}
                         <tr>
-                                <td>{{ student.token }}</td>
-                                <td>{{ student.basic_info.sID }}</td>
-                                <td>{{ student.basic_info.name }}</td>
-                                <td>{{ student.basic_info.semester }}</td>
-                                <td>{{ student.basic_info.section }}</td>
-                                <td>{{ student.t_shirt }}</td>
-                                <td>{{ student.basic_info.phone }}  {{ student.basic_info.sec_phone }}</td>
-                                <td>{{ student.basic_info.email }}</td>
-                                <td>{{ student.regby }}</td>
-{#                                <td>{{ student.basic_info.name }}</td>#}
-{#                                <td>{{ student.basic_info.name }}</td>#}
-{#                                <td>{{ student.basic_info.name }}</td>#}
-{#                                <td>{{ student.basic_info.name }}</td>#}
-{#                                <td>{{ student.basic_info.name }}</td>#}
+                            <td>{{ student.token }}</td>
+                            <td>{{ student.basic_info.sID }}</td>
+                            <td>{{ student.basic_info.name }}</td>
+                            <td>{{ student.basic_info.semester }}</td>
+                            <td>{{ student.basic_info.section }}</td>
+                            <td>{{ student.t_shirt }}</td>
+                            <td>{{ student.basic_info.phone }} {{ student.basic_info.sec_phone }}</td>
+                            <td>{{ student.basic_info.email }}</td>
+                            <td>{{ student.regby }}</td>
+                            <td>{{ student.regtiem }}</td>
+                            {#                                <td>{{ student.basic_info.name }}</td>#}
+                            {#                                <td>{{ student.basic_info.name }}</td>#}
+                            {#                                <td>{{ student.basic_info.name }}</td>#}
+                            {#                                <td>{{ student.basic_info.name }}</td>#}
+                            {#                                <td>{{ student.basic_info.name }}</td>#}
 
-
-                                <td class="text-center mx-auto">
-                                        <a href="/register/{{ student.id }}"
-                                           class="btn  btn-info ">Update</a>
-{#                                        <a href="/del_std/{{ student.id }}" class="btn  btn-warning">Email</a> #}
-                                    <a href="#" class="btn  btn-warning">Email</a>
-                                </td>
 
                         </tr>
                     {% endfor %}

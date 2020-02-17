@@ -103,6 +103,7 @@
 {% endblock %}
 
 {% block body %}
+    <h1>{{ B_1st }}</h1>
     <div class="container">
         <div class="row mt-4">
             <div class="col-md-4">
@@ -111,7 +112,7 @@
                         <img src="https://image.flaticon.com/icons/svg/1419/1419213.svg" alt=""
                              class="WeatherWidget-primaryIcon"/>
 
-                        <h2 class="Widget-headline">{{total_std_count}}</h2>
+                        <h2 class="Widget-headline">{{ total_std_count }}</h2>
                     </header>
                     <div class="Widget-body">
                         <p>Approximate Students Count</p>
@@ -124,7 +125,7 @@
                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-80/sun.svg" alt=""
                              class="WeatherWidget-primaryIcon"/>
 
-                        <h2 class="Widget-headline">{{total_reg_count}}</h2>
+                        <h2 class="Widget-headline">{{ total_reg_count }}</h2>
                     </header>
                     <div class="Widget-body">
                         <p>Total Registered Students</p>
@@ -137,7 +138,7 @@
                         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-80/sun.svg" alt=""
                              class="WeatherWidget-primaryIcon"/>
 
-                        <h2 class="Widget-headline">{{seat_available}}</h2>
+                        <h2 class="Widget-headline">{{ seat_available }}</h2>
                     </header>
                     <div class="Widget-body">
                         <p>Seat Available</p>
@@ -173,8 +174,11 @@
 {% endblock %}
 
 {% block scripts %}
+
+
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+
         google.charts.load("current", {packages: ['corechart']});
         google.setOnLoadCallback(drawGenderChart);
         google.setOnLoadCallback(drawCampusChart);
@@ -308,9 +312,51 @@
         function drawSemesterSectionChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Section', 'A', 'B', 'C', 'D',
-                    'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', {role: 'annotation'}],
-                ['1st', 10, 24, 20, 10, 18, 5, 6, 7, 2, 4, 8, 0, 21, 5, 5, 4, 8, ''],
-                ['2nd', 10, 24, 20, 5, 18, 5, 6, 7, 2, 4, 8, 0, 21, 5, 5, 6, 8, ''],
+                    'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'UC_A', 'Eve_A', 'Eve_B', {role: 'annotation'}],
+                ['1st',
+                    {{ A_1st }},
+                    {{ B_1st }},
+                    {{ C_1st }},
+                    {{ D_1st }},
+                    {{ E_1st }},
+                    {{ F_1st }},
+                    {{ G_1st }},
+                    {{ H_1st }},
+                    {{ I_1st }},
+                    {{ J_1st }},
+                    {{ K_1st }},
+                    {{ L_1st }},
+                    {{ M_1st }},
+                    {{ N_1st }},
+                    {{ O_1st }},
+                    {{ P_1st }},
+                    {{ Q_1st }},
+                    {{UC_A_1st}},
+                    {{Eve_A_1st}},
+                    {{Eve_B_1st}},
+                    ''],
+                ['2nd',
+                    {{ A_2nd }},
+                    {{ B_2nd }},
+                    {{ C_2nd }},
+                    {{ D_2nd }},
+                    {{ E_2nd }},
+                    {{ F_2nd }},
+                    {{ G_2nd }},
+                    {{ H_2nd }},
+                    {{ I_2nd }},
+                    {{ J_2nd }},
+                    {{ K_2nd }},
+                    {{ L_2nd }},
+                    {{ M_2nd }},
+                    {{ N_2nd }},
+                    {{ O_2nd }},
+                    {{ P_2nd }},
+                    {{ Q_2nd }},
+                    {{ UC_A_2nd }},
+                    {{ Eve_A_2nd }},
+                    {{ Eve_B_2nd }},
+                    ''],
             ]);
 
             var view = new google.visualization.DataView(data);
@@ -321,7 +367,7 @@
                     type: "string",
                     role: "annotation"
                 },
-                2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
+                2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]);
 
             var options = {
                 {#width: 1000,#}

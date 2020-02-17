@@ -54,10 +54,17 @@ def register(request, id):
             students = ALLStudents.objects.filter(Q(id__exact=id))
             if students:
                 get_std = ALLStudents.objects.get(id=id)
-                context = {'student': get_std, 'user': request.user}
+                reg_chk = RegStudents.objects.filter(sID__exact=get_std.sID)
+                if reg_chk:
+                    get_reg_std = RegStudents.objects.get(sID__exact=get_std.sID)
+                    context = {'student': get_std, 'user': request.user,'get_reg_std':get_reg_std}
+                    # return HttpResponse(get_reg_std.t_shirt)
+                else:
+                    context = {'student': get_std, 'user': request.user}
                 return render(request, 'std-reg.html', context)
             else:
                 messages.success(request, "No student Data Found")
+
         elif request.method == "POST":
             system_messages = messages.get_messages(request)
             for message in system_messages:

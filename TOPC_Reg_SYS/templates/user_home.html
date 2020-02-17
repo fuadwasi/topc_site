@@ -66,15 +66,14 @@
                 </div>
 
 
-
-
-
                 <table class="table">
-                    <thead class="thead-dark">
+                    <thead class="alert btn-info">
                     <tr>
                         <th scope="col">Token No</th>
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Section</th>
                         <th scope="col">Status</th>
                         <th scope="col">Token No</th>
                         <th scope="col">Tshirt</th>
@@ -87,8 +86,10 @@
                             <td>{{ student.id }}</td>
                             <td>{{ student.sID }}</td>
                             <td>{{ student.name }}</td>
-                            <td>{{ student.status }}</td>
 
+                            <td>{{ student.semester }}</td>
+                            <td>{{ student.section }}</td>
+                            <td>{{ student.status }}</td>
                             {% if student.status == 'Not_Registered' %}
                                 <td>----</td>
                                 <td>----</td>
@@ -101,7 +102,8 @@
                                 <td>{{ student.t_shirt }}</td>
                                 <td class="text-center mx-auto">
                                     <a href="/register/{{ student.id }}" class="btn btn-warning ">Update Info</a>
-                                    <a href="/request/{{ student.id }}" class="btn  btn-danger  ">Cancel Registration</a>
+                                    <a href="/request/{{ student.id }}" class="btn  btn-danger  ">Cancel
+                                        Registration</a>
                                 </td>
                             {% endif %}
 
