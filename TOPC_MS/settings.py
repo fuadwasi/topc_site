@@ -24,7 +24,6 @@ SECRET_KEY = 'e(9vj#u&*c)67!5d%$p5+e9p3mqd$volib#%6k1ts3d-zw1=d)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -117,12 +116,6 @@ MEDIA_URL= '/media/'
 STATICFILES_DIRS = ()
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
-
-
-
-
-
-
 
 
 try:
