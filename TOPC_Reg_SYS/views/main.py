@@ -38,7 +38,7 @@ def home(request):
                 messages.success(request, "No Data Found")
                 return redirect('home')
             elif sID != "":
-                obj = ALLStudents.objects.filter(Q(sID__contains=sID) | Q(name__contains=sID))
+                obj = ALLStudents.objects.filter(Q(sID__contains=sID) | Q(name__contains=sID)| Q(token=sID))
 
                 if obj:
                     context = {'students': obj}
