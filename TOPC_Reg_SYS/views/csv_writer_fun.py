@@ -28,12 +28,15 @@ def reg_std_download(request):
         writer = csv.writer(response, delimiter=',')
         writer.writerow(
             ['Token NO', 'ID', 'Name', 'Semester', 'Section', 'Department', 'Campus', 'Phone', 'Secondary_Phone',
-             'Email', 'Secondary_Email', 'Room No', 'Pc', 'T_shirt', 'Username', 'Password'])
+             'Email', 'Secondary_Email', 'Room No', 'Pc', 'T_shirt','User_info' 'Username', 'Password'])
         for obj in students:
             writer.writerow([obj.token, obj.sID, obj.basic_info.name, obj.basic_info.section,
                              obj.basic_info.semester, obj.basic_info.department, obj.basic_info.campus,
                              obj.basic_info.phone, obj.basic_info.sec_phone, obj.basic_info.email,
-                             obj.basic_info.sec_email, obj.room, obj.pc_no, obj.t_shirt, obj.userid, obj.password])
+                             obj.basic_info.sec_email, obj.room, obj.pc_no, obj.t_shirt,
+                             obj.sID+'_'+obj.basic_info.semester+'_'+obj.basic_info.section+'_'+obj.basic_info.campus,
+
+                             obj.userid, obj.password])
 
         return response
     else:
