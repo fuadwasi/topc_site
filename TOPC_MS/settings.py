@@ -74,17 +74,6 @@ WSGI_APPLICATION = 'TOPC_MS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': "cpc_topc_ms",
-        'USER': 'root',
-        'PASSWORD':'',
-        'HOST':'localhost',
-        'PORT': '3306'
-
-    }
-}
 
 
 
@@ -124,12 +113,10 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
 MEDIA_URL= '/media/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
-]
+STATICFILES_DIRS = ()
+STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 
 
@@ -138,28 +125,7 @@ STATICFILES_DIRS = [
 
 
 
-
-
-
-# ...................Sending email configurations:...................
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'mail.shakilahmed.com'
-# EMAIL_HOST_USER = 'fuad@shakilahmed.com'
-# EMAIL_HOST_PASSWORD = 'diu@123456'
-# EMAIT_PORT = 26
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'fuad15-9400@diu.edu.bd'
-EMAIL_HOST_PASSWORD = ''
-EMAIT_PORT = 587
-
-
-# EMAIL_HOST = 'mail.cpc.daffodilvarsity.edu.bd'
-# EMAIL_HOST_USER = 'mail@cpc.daffodilvarsity.edu.bd'
-# EMAIL_HOST_PASSWORD = ''
-# EMAIT_PORT = 465
-
+try:
+    from env import *
+except:
+    pass
