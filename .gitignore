@@ -22,3 +22,6 @@ yarn-error.log*
 *.sw*
 .pnp.js
 *__pycache__*
+TOPC_Reg_SYS/migrations/__pycache__/
+TOPC_Reg_SYS/views/__pycache__
+TOPC_Reg_SYS/__pycache__/
