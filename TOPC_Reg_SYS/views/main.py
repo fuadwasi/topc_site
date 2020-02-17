@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.utils import timezone
 from datetime import datetime
 from django.db.models.functions import Now
-
+from django.conf import settings
 from TOPC_Reg_SYS.models import ALLStudents, RegStudents, Req_queuey
 
 
@@ -112,7 +112,7 @@ def ush(request):
             level = 1
         if request.method == "GET":
 
-            context = {'level': level, 'stdcount': stdcount, "total_count": total_count, "seat_avail": 300 - stdcount,
+            context = {'level': level, 'stdcount': stdcount, "total_count": total_count, "seat_avail": settings.SEAT_COUNT - stdcount,
                        'user': request.user, 'request_count': request_count}
             return render(request, "user_home.html", context)
         elif request.method == "POST":
@@ -124,7 +124,7 @@ def ush(request):
                 obj = ALLStudents.objects.all()
                 if obj:
                     context = {'level': level, 'stdcount': stdcount, "total_count": total_count,
-                               "seat_avail": 300 - stdcount, 'students': obj, 'user': request.user,
+                               "seat_avail": settings.SEAT_COUNT - stdcount, 'students': obj, 'user': request.user,
                                'request_count': request_count}
                     return render(request, "user_home.html", context)
                 else:
@@ -135,14 +135,14 @@ def ush(request):
 
                 if std:
                     context = {'level': level, 'stdcount': stdcount, 'students': std, "total_count": total_count,
-                               "seat_avail": 300 - stdcount, 'user': request.user, 'request_count': request_count}
+                               "seat_avail": settings.SEAT_COUNT - stdcount, 'user': request.user, 'request_count': request_count}
                     return render(request, "user_home.html", context)
                 else:
                     messages.success(request, "No Data Found")
                     return redirect('ush')
             else:
                 context = {'level': level, 'stdcount': stdcount, "total_count": total_count,
-                           "seat_avail": 300 - stdcount, 'user': request.user, 'request_count': request_count}
+                           "seat_avail": settings.SEAT_COUNT - stdcount, 'user': request.user, 'request_count': request_count}
                 return render(request, "user_home.html", context)
     else:
         system_messages = messages.get_messages(request)

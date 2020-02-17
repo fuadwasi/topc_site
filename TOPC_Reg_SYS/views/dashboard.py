@@ -17,13 +17,14 @@ from django.db.models.functions import Now
 
 from TOPC_Reg_SYS.models import ALLStudents, RegStudents
 from . import email_conf_send
+from django.conf import settings
 
 
 def dashboard(request):
     all_campus= RegStudents.objects.all()
     total_std_count = ALLStudents.objects.all().count()
     total_reg_count = RegStudents.objects.all().count()
-    seat_available=total_std_count-total_reg_count
+    seat_available=settings.SEAT_COUNT-total_reg_count
     main_campus = len(RegStudents.objects.filter(basic_info__campus='MC'))
     uttara_campus = len(RegStudents.objects.filter(basic_info__campus='UC'))
     male = len(RegStudents.objects.filter(basic_info__gender__exact='Male'))
@@ -39,6 +40,12 @@ def dashboard(request):
     swe = len(RegStudents.objects.filter(basic_info__department__exact="SWE"))
     cis = len(RegStudents.objects.filter(basic_info__department__exact="CIS"))
     other_dept = total_reg_count - cse - cis - swe
+    A_1st = len(RegStudents.objects.filter(Q(basic_info__section__exact="A")& Q(basic_info__campus__exact="MC")& Q(basic_info__semester__exact="1st")& Q(basic_info__shift__exact="Day")))
+
+
+
+
+
 
 
     contex ={'total_std_count':total_std_count,
@@ -56,6 +63,7 @@ def dashboard(request):
              'swe': swe,
              'cis': cis,
              'other_dept':other_dept,
+             'A_1st':A_1st,
 
 
              }

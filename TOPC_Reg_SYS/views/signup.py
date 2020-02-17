@@ -12,6 +12,8 @@ from django.utils import timezone
 from datetime import datetime
 from django.db.models.functions import Now
 
+from . import email_conf_send
+
 
 
 
@@ -71,7 +73,18 @@ def signup(request):
                         new_user.is_superuser = 0
                         new_user.is_staff = 0
                     new_user.save()
-                    messages.error(request, "Entry Succcessful")
+                    email_body = 'Dear ' + new_user.first_name + ',\n\nYour account has been created successfully.'
+                    email_body += 'Your account details:\n\n'
+                    email_body += '\nName: ' + new_user.first_name
+                    email_body += '\nUsername: ' + new_user.username
+                    email_body += '\nPassword: ' + new_user.password
+                    email_body += '\nAuthentication Level: ' + u_level
+                    email_body += '\n\n\nThanks for being with us.\n\n\n With best regurds\nDIUCPC'
+
+                    email_subject = "TOPC Spring 2020 Registration Confirmation"
+                    email_conf_send.email_send([new_user.email], email_subject, email_body)
+
+                    messages.error(request, "User Registration Succcessful")
                     return redirect('signup')
                     # return render(request, "signup.html", {'msg': 'Entry Succcessful', 'user': request.user.username})
     else:

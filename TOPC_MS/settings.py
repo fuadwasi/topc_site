@@ -113,7 +113,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 
-
+SEAT_COUNT = 300
 
 
 try:
