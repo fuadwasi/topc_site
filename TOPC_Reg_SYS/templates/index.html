@@ -32,31 +32,33 @@
             display: block;
         }
 
-        @media (min-width: 1200px){
+        @media (min-width: 1200px) {
             #table_head {
                 font-size: 45px;
                 line-height: 1.36111;
             }
-}
-            #fun {
-                padding: 0px;
-                margin-bottom: 30px;
-            }
+        }
 
-            #diu #login_but {
-                color: yellow;
-            }
-            #table_head {
-                color: red;
-            }
+        #fun {
+            padding: 0px;
+            margin-bottom: 30px;
+        }
 
-            #diu {
-                margin-top: 30px;
-            }
+        #diu #login_but {
+            color: yellow;
+        }
 
-            #login_but {
-                background-color: yellow;
-            }
+        #table_head {
+            color: red;
+        }
+
+        #diu {
+            margin-top: 30px;
+        }
+
+        #login_but {
+            background-color: yellow;
+        }
 
     </style>
 </head>
@@ -104,9 +106,13 @@
                             <ul class="rd-navbar-nav">
                                 <li class="rd-nav-item active"><a class="rd-nav-link" href="">TOPC_MS Home</a>
                                 </li>
-                                <li class="rd-nav-item"><a class="rd-nav-link" href="https://cpc.daffodilvarsity.edu.bd/" target="_blank">CPC HOME</a>
+                                <li class="rd-nav-item"><a class="rd-nav-link"
+                                                           href="https://cpc.daffodilvarsity.edu.bd/" target="_blank">CPC
+                                    HOME</a>
                                 </li>
-                                <li class="rd-nav-item"><a class="rd-nav-link" href="http://cpc.daffodilvarsity.edu.bd/takeoff" target="_blank">Take-Off Site</a>
+                                <li class="rd-nav-item"><a class="rd-nav-link"
+                                                           href="http://cpc.daffodilvarsity.edu.bd/takeoff"
+                                                           target="_blank">Take-Off Site</a>
                                 </li>
                                 <li class="rd-nav-item" id='login_but'><a class="rd-nav-link" href="/login/">Login</a>
                                 </li>
@@ -130,7 +136,7 @@
     <section class="section section-xl-custom image-section section-lined mt-5" id='fun'>
         <h4 id='table_head'>
             <center>Check Registration Status
-                </center>
+            </center>
         </h4>
         {% include 'fragment/message_show.html' %}
 
@@ -143,13 +149,14 @@
                     <form class="form-inline my-2 my-lg-0" method="post">
                         {% csrf_token %}
 
-                        <input class="form-control mr-sm-2 w-75" type="search" placeholder="Enter Your Student ID or Name"
+                        <input class="form-control mr-sm-2 w-75" type="search"
+                               placeholder="Enter Your Student ID or Name"
                                aria-label="Search" name="search" id="search1">
-{#                        <script>#}
-{#                            window.onload = function () {#}
-{#                                document.getElementById("search1").focus();#}
-{#                            };#}
-{#                        </script>#}
+                        {#                        <script>#}
+                        {#                            window.onload = function () {#}
+                        {#                                document.getElementById("search1").focus();#}
+                        {#                            };#}
+                        {#                        </script>#}
                         <button class="button button-default my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
@@ -161,8 +168,8 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Token</th>
+                            <th scope="col">Status</th>
                         </tr>
                     {% endif %}
                     </thead>
@@ -171,13 +178,13 @@
                         <tr>
                             <td>{{ student.sID }}</td>
                             <td>{{ student.name }}</td>
-                            <td>{{ student.status }}</td>
+
                             {% if student.status == 'Registered' %}
                                 <td>{{ student.token }}</td>
                             {% else %}
                                 <td>---</td>
                             {% endif %}
-
+                            <td>{{ student.status }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -209,17 +216,19 @@
                 </div>
                 <div class="col-sm-6 col-lg-4 col-xl-3">
                     <h5>Contacts</h5>
-{#                    <dl class="list-terms-custom">#}
-{#                        <dt>Ph.</dt>#}
-{#                        <dd><a class="link-default" href="tel:#">1-300-123-1234</a></dd>#}
-{#                    </dl>#}
+                    {#                    <dl class="list-terms-custom">#}
+                    {#                        <dt>Ph.</dt>#}
+                    {#                        <dd><a class="link-default" href="tel:#">1-300-123-1234</a></dd>#}
+                    {#                    </dl>#}
                     <dl class="list-terms-custom">
                         <dt>Mail.</dt>
                         <dd><a class="link-default" href="mailto:cpc@diu.edu.bd">cpc@diu.edu.bd</a></dd>
                     </dl>
                     <ul class="list-inline list-inline-sm">
-                        <li><a class="icon icon-sm icon-gray-filled icon-circle mdi mdi-web" href="https://cpc.daffodilvarsity.edu.bd/"></a></li>
-                        <li><a class="icon icon-sm icon-gray-filled icon-circle mdi mdi-facebook" href="https://www.facebook.com/diucpc.official" target="_blank"></a></li>
+                        <li><a class="icon icon-sm icon-gray-filled icon-circle mdi mdi-web"
+                               href="https://cpc.daffodilvarsity.edu.bd/"></a></li>
+                        <li><a class="icon icon-sm icon-gray-filled icon-circle mdi mdi-facebook"
+                               href="https://www.facebook.com/diucpc.official" target="_blank"></a></li>
                         <li><a class="icon icon-sm icon-gray-filled icon-circle mdi mdi-linkedin" href="#"></a></li>
                         <li><a class="icon icon-sm icon-gray-filled icon-circle mdi mdi-twitter" href="#"></a></li>
                     </ul>
@@ -246,14 +255,15 @@
         <div class="container">
             <div class="row row-15 justify-content-lg-between">
                 <div class="col-lg-6 col-xl-6 text-lg-left">
-                    <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year" ></span>. All Rights
+                    <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span>. All Rights
                         Reserved by
                         <span style="color: yellow"><a href="https://cpc.daffodilvarsity.edu.bd/" target="_blank">DIU CPC</a></span>
                         . Developed by
-                        <span style="color: yellow"><a href="https://www.facebook.com/fhwasi" target="_blank">Fuad Hasan</a></span>
-                         &
+                        <span style="color: yellow"><a href="https://www.facebook.com/fhwasi"
+                                                       target="_blank">Fuad Hasan</a></span>
+                        &
                         <span style="color: yellow"><a href="https://www.facebook.com/shakilahmmeed" target="_blank">Shakil Ahmed</a></span>
-                        </p>
+                    </p>
                 </div>
                 <div class="col-lg-6 col-xl-6">
                     <ul class="list-inline list-inline-lg text-uppercase">

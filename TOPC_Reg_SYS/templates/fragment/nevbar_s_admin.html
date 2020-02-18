@@ -6,7 +6,7 @@
         </li>
         <li class="nav-item">
             {% if request_count %}
-                <a class="btn btn-warning active" href={% url "request_list" %}>Requests ({{ request_count }}) <span
+                <a class="btn btn-info" href={% url "request_list" %}>Requests ({{ request_count }}) <span
                         class="sr-only">Home</span></a>
             {% endif %}
         </li>

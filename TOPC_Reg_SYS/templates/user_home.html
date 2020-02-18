@@ -47,14 +47,15 @@
                         </div>
 
                     </div>
-                {% endif %}
+                {% else %}
 
-                <h1 style="color:red;">
+                <h1 style="color:red; font-size: 65px;">
                     <center>Take-Off Programming Contest Registration System</center>
                 </h1>
-                <h3 style="color:red;">
+                <h1 style="color:red;">
                     <center>Spring 2020</center>
-                </h3>
+                </h1>
+                {% endif %}
 
                 <!--/row-->
                 <div class="row my-5 mx-auto">
@@ -111,8 +112,10 @@
                                 {#                                <td>{{ student.t_shirt }}</td>#}
                                 <td class="text-center mx-auto">
                                     <a href="/register/{{ student.id }}" class="btn btn-warning ">Update Info</a>
-                                    <a href="/request/{{ student.id }}" class="btn  btn-danger  ">Cancel
-                                        Registration</a>
+                                    {% if user.is_superuser == 0 %}
+                                        <a href="/request/{{ student.id }}" class="btn  btn-danger  ">Cancel
+                                            Registration</a>
+                                    {% endif %}
                                 </td>
                             {% endif %}
 
