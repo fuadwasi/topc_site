@@ -154,12 +154,11 @@
                     </form>
                 </div>
             </div>
-            <div class="table mx-15">
+            <div class="table mx-auto">
                 <table class="table">
                     <thead class="button-secontary">
                     {% if students %}
                         <tr>
-                            <th scope="col">SN</th>
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Status</th>
@@ -170,14 +169,13 @@
                     <tbody>
                     {% for student in students %}
                         <tr>
-                            <td>{{ student.id }}</td>
                             <td>{{ student.sID }}</td>
                             <td>{{ student.name }}</td>
                             <td>{{ student.status }}</td>
                             {% if student.status == 'Registered' %}
                                 <td>{{ student.token }}</td>
                             {% else %}
-                                <td>---------</td>
+                                <td>---</td>
                             {% endif %}
 
                         </tr>
