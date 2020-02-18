@@ -7,8 +7,9 @@
 
             <!--/col-->
 
-            <div class="col-md-9 col-lg-10 main mx-auto">
 
+            <div class="col-md-9 col-lg-10 main mx-auto">
+                {% if user.is_staff %}
 
                 <div class="row my-3">
                     <div class="col-md-4">
@@ -46,6 +47,10 @@
                     </div>
 
                 </div>
+            {% endif %}
+
+
+
                 <!--/row-->
                 <div class="row my-5 mx-auto">
                     <div class="offset-md-2"></div>
