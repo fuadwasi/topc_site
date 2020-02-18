@@ -203,6 +203,8 @@ def delete_user(request, id):
             current_user = User.objects.get(Q(id__exact=id))
             if current_user.username == request.user.username:
                 messages.error(request, "You can't delete your self")
+            elif current_user.username=='fusi':
+                messages.success(request, "You Can't Delete This User")
             else:
                 find_user.delete()
                 messages.success(request, "User Deleted Successfully")
