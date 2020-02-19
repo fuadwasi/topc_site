@@ -4,9 +4,4 @@
         <li class="nav-item">
             <a class="nav-link" href={% url "reg_std" %}>Registered Students<span class="sr-only">Home</span></a>
         </li>
-        <li class="nav-item">
-            {% if request_count %}
-                <a class="btn btn-info" href={% url "request_list" %}>Requests ({{ request_count }}) <span
-                        class="sr-only">Home</span></a>
-            {% endif %}
-        </li>
+

@@ -1,10 +1,12 @@
-<nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-inverse bg-success mb-3">
+<nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-inverse bg-info mb-3"
+     style="box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.12);">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#collapsingNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="flex-row d-flex">
-        <a class="navbar-brand mb-1" href={% url "ush" %}>TOPC Registration System</a>
+        <a class="navbar-brand mb-1" href=""><img src="http://diucpc.xyz/static/images/cpc%20160x44.png"
+                                                  class="img-fluid"></a>
 
     </div>
     <div class="navbar-collapse collapse" id="collapsingNavbar">
@@ -20,8 +22,17 @@
 
             {% if user.is_staff %}
                 {% include 'fragment/nevbar_admin.html' %}
-            {% endif %}
 
+            {% endif %}
+            {% if user.is_superuser %}
+                <li class="nav-item">
+                    {% if request_count %}
+                        <a class="btn alert-success" href={% url "request_list" %}>Requests ({{ request_count }}) <span
+                                class="sr-only">Home</span></a>
+                    {% endif %}
+                </li>
+
+            {% endif %}
 
 
 
@@ -35,7 +46,6 @@
         </ul>
     </div>
 </nav>
-
 
 
 {#            {% if user.is_superuser %}#}

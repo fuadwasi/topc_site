@@ -101,15 +101,20 @@
             -ms-transform: rotate(-44deg);
             transform: rotate(-44deg);
         }
+
+        a.nav-link {
+            color: #00000099 !important;
+            font-weight: 500;
+        }
     </style>
     {% block styles %}
     {% endblock %}
 </head>
 <body>
 
-    {% include 'fragment/nevbar_user.html' %}
-    {% include 'fragment/message_show.html' %}
-    {% include 'fragment/department_map.html' %}
+{% include 'fragment/nevbar_user.html' %}
+{% include 'fragment/message_show.html' %}
+{% include 'fragment/department_map.html' %}
 
 {% block body %}
 {% endblock %}
