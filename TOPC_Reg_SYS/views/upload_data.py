@@ -125,7 +125,40 @@ def add_student(request):
         if request.method == 'GET':
             return render(request, 'add-student.html', {"user": request.user})
         elif request.method == 'POST':
-            return HttpResponse("user is added")
+
+            sId = request.POST["sId"]
+
+            chk_std = ALLStudents.objects.filter(Q(sID=sId))
+            if chk_std:
+                messages.success(request, "Student Already Exists")
+                return redirect('all_std')
+            else:
+                name = request.POST["name"]
+                email = request.POST["email"]
+                phone = request.POST["phone"]
+                campus = request.POST["campus"]
+                department = request.POST["department"]
+                shift = request.POST["shift"]
+                semester = request.POST["semester"]
+                section = request.POST["section"]
+                gender = request.POST["gender"]
+
+                new_std = ALLStudents.objects.create(
+                    name = name 		 ,
+                    sID 	= sId 		 ,
+                    email 	= email 		 ,
+                    phone 	= phone 		 ,
+                    campus 	= campus 		 ,
+                    department = department 	 ,
+                    shift 	= shift 		 ,
+                    semester = semester 	 ,
+                    section = section 	 ,
+                    gender 	= gender
+                )
+                new_std.save()
+
+            messages.success(request, "Student data entry successful")
+            return redirect('all_std')
     else:
         return redirect('ush')
 

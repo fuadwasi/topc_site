@@ -18,54 +18,62 @@
             <div class="col-md-9 mx-auto">
                 <form method="post" id="register-form">
                     {% csrf_token %}
+
                     <div class="row">
+
                         <div class="form-group col-md-12">
-                            <label for="u_name">Name</label>
-                            <input type="text" class="form-control" id="u_name" placeholder="Name" name="u_name">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Name" name="name" required>
                         </div>
+
+
                         <div class="form-group col-md-12">
                             <label for="sId">Student ID</label>
-                            <input type="password" class="form-control" id="sId" placeholder="Student ID">
+                            <input type="text" class="form-control" id="sId" placeholder="Student ID" name="sId"
+                                   required>
                         </div>
+
+
                         <div class="form-group col-md-6">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email">
+                            <input type="email" class="form-control" id="email" placeholder="Email" name="email"
+                                   required>
                         </div>
+
+
                         <div class="form-group col-md-6">
                             <label for="phone">Phone No</label>
-                            <input type="number" class="form-control" id="phone" placeholder="Phone Number">
+                            <input type="text" class="form-control" id="phone" placeholder="Phone Number" name="phone"
+                                   required>
                         </div>
+
+
                         <div class="form-group col-md-4">
                             <label for="campus">Campus</label>
                             <select name="campus" class="form-control" required="true">
-                                <option value="UC">Uttara Campus</option>
                                 <option value="MC">Main Campus</option>
+                                <option value="UC">Uttara Campus</option>
                             </select>
                         </div>
-                        {% if user.is_superuser == 0 %}
-                            <div class="form-group col-md-4">
-                                <label for="dept">Department</label>
-                                <select name="dept" required="true" {% if user.is_staff == 0 %}disabled{% endif %}>
-                                    <option value="{{ student.department }}">{{ student.department }}</option>
-                                    <option value="CSE">CSE</option>
-                                    <option value="SWE">SWE</option>
-                                    <option value="CIS">CIS</option>
-                                    <option value="ETE">ETE</option>
-                                </select>
-                            </div>
-                        {% elif user.is_superuser %}
-                            <div class="form-group col-md-4">
-                                <label for="dept">Department</label>
-                                <input type="text" class="form-control" name="dept" required="true">
-                            </div>
-                        {% endif %}
+
+
+                        <div class="form-group col-md-8">
+                            <label for="department">Department</label>
+                            <select name="department" class="form-control" required="true">
+                                {% include 'fragment/dept_list.html' %}
+                            </select>
+                        </div>
+
+
                         <div class="form-group col-md-4">
                             <label for="shift">Shift</label>
                             <select name="shift" id="shift" class="form-control" required="true">
-                                <option value="day">Day</option>
-                                <option value="evening">Evening</option>
+                                <option value="Day">Day</option>
+                                <option value="Evening">Evening</option>
                             </select>
                         </div>
+
+
                         <div class="form-group col-md-4">
                             <label for="semester">Semester</label>
                             <select name="semester" class="form-control" required="true">
@@ -73,32 +81,16 @@
                                 <option value="2nd">2nd Semester</option>
                             </select>
                         </div>
+
+
                         <div class="form-group col-md-4">
                             <label for="section">Section</label>
                             <select name="section" id="section" class="form-control" required="true">
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
-                                <option value="J">J</option>
-                                <option value="K">K</option>
-                                <option value="L">L</option>
-                                <option value="M">M</option>
-                                <option value="N">N</option>
-                                <option value="O">O</option>
-                                <option value="P">P</option>
-                                <option value="Q">Q</option>
-                                <option value="R1(old)">R1(old)</option>
-                                <option value="R1">R1</option>
-                                <option value="UC-A">UC-A</option>
-                                <option value="UC-A(old)">UC-A(old)</option>
+                                {% include 'fragment/section_list.html' %}
                             </select>
                         </div>
+
+
                         <div class="form-group col-md-4">
                             <label>Gender</label>
                             <select name="gender" required="true" class="form-control">
@@ -107,8 +99,13 @@
                                 <option value="Other">Other</option>
                             </select>
                         </div>
+
+
                     </div>
+
                     <button type="submit" id="form-submit" class="btn btn-success">Submit</button>
+
+
                     <a class="btn btn-danger " href={% url "ush" %}>Cancel</a>
                 </form>
             </div>

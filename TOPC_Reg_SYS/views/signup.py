@@ -51,15 +51,18 @@ def signup(request):
                 return render(request, "signup.html", {'msg': 'Data missing', 'user': request.user})
             else:
                 if level < 3 and u_level == 'superuser':
-                    messages(request, "Your are not authorized to do this  operation")
+                    messages.success(request, "Your are not authorized to do this  operation")
                     return redirect('signup')
                 old_user = User.objects.filter(Q(username__exact=username))
                 if old_user:
-                    return render(request, "signup.html",
-                                  {'msg': 'User Already Exists', 'user': request.user})
+                    messages.success(request, "User Already Exists")
+                    return redirect('signup')
+
                 elif password2 != password:
-                    return render(request, "signup.html",
-                                  {'msg': 'Password does not match', 'user': request.user})
+                    messages.success(request, "Password does not match")
+                    return redirect('signup')
+                    # return render(request, "signup.html",
+                    #               {'msg': 'Password does not match', 'user': request.user})
                 else:
 
                     new_user = User.objects.create_user(username=username, password=password, first_name=f_name, last_name=sId, email=email)
