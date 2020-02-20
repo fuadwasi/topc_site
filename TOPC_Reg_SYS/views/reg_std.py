@@ -44,6 +44,7 @@ def reg_std(request):
                     return render(request, 'registered_student_list.html', context)
                 else:
                     messages.error(request, "No Student Data Found")
+                    return redirect('reg_std')
             else:
                 messages.success(request, "Enter a valid user name or ID")
                 return redirect('reg_std')
