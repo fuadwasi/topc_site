@@ -27,6 +27,11 @@ def home(request):
             return render(request, 'index.html')
 
         elif request.method == "POST":
+            system_messages = messages.get_messages(request)
+            for message in system_messages:
+                # This iteration is necessary
+                pass
+            system_messages.used = True
             sID = request.POST['search']
 
             if sID == '%':

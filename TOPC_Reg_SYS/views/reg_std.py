@@ -30,6 +30,11 @@ def reg_std(request):
             context = {'students': students, 'user': request.user}
             return render(request, 'registered_student_list.html', context)
         elif request.method == "POST":
+            system_messages = messages.get_messages(request)
+            for message in system_messages:
+                # This iteration is necessary
+                pass
+            system_messages.used = True
             key = request.POST['search']
 
             if key:
