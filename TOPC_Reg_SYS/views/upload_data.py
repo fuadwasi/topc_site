@@ -109,9 +109,11 @@ def upload_data(request):
                             phone	= column[8],
                             email 	= column[9]
                              )
+                        if new_std.department != "CSE":
+                            new_std.section = department + '(' + section + ')'
                         new_std.save()
 
-                messages.error(request, "Data updated successfully")
+                messages.success(request, "Data updated successfully")
             else:
                 messages.error(request, "No File detected")
             return redirect('upload')
@@ -131,7 +133,7 @@ def add_student(request):
             chk_std = ALLStudents.objects.filter(Q(sID=sId))
             if chk_std:
                 messages.success(request, "Student Already Exists")
-                return redirect('all_std')
+                return redirect('add-student')
             else:
                 name = request.POST["name"]
                 email = request.POST["email"]
@@ -142,6 +144,9 @@ def add_student(request):
                 semester = request.POST["semester"]
                 section = request.POST["section"]
                 gender = request.POST["gender"]
+
+                if department!= "CSE":
+                    section = department+'('+section+')'
 
                 new_std = ALLStudents.objects.create(
                     name = name 		 ,
@@ -156,9 +161,10 @@ def add_student(request):
                     gender 	= gender
                 )
                 new_std.save()
+                msg = "Data entry successful for Name: " + new_std.name + ' Id: '+ new_std.sID
 
-            messages.success(request, "Student data entry successful")
-            return redirect('all_std')
+            messages.success(request,msg )
+            return redirect('add-student')
     else:
         return redirect('ush')
 

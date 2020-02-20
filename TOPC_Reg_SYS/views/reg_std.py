@@ -33,7 +33,7 @@ def reg_std(request):
             key = request.POST['search']
 
             if key:
-                get_std = RegStudents.objects.filter(Q(sID__contains=key) | Q(name__contains=key))
+                get_std = RegStudents.objects.filter(Q(basic_info__sID__contains=key) | Q(basic_info__name__contains=key))
                 if get_std:
                     context = {'students': get_std, 'user': request.user}
                     return render(request, 'registered_student_list.html', context)

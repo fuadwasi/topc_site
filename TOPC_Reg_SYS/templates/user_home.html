@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
+{% block banner %}
+    {% load static %}
+    <div class="row mx-auto mb-2">
+
+        <img class="img-fluid" src="{% static "images/topc_ban.png" %}" alt="My image">
+
+    </div>
+{% endblock %}
+
 {% block body %}
+
     {#    {% include 'fragment/message_show.html' %}#}
     <div class="container-fluid" id="main">
         <div class="row row-offcanvas row-offcanvas-left">
@@ -9,6 +19,7 @@
 
 
             <div class="col-md-12 col-lg-12 main mx-auto">
+                {#            <div class="main mx-auto">#}
                 {% if user.is_staff %}
 
                     <div class="row my-3">
@@ -47,18 +58,13 @@
                         </div>
 
                     </div>
-                {% else %}
+                    {#                {% else %}#}
 
-                <h1 style="color:red; margin-top: 30px;">
-                    <center>Take-Off Programming Contest Registration System</center>
-                </h1>
-                <h3 style="color:red;margin-top: 15px;">
-                    <center>Spring 2020</center>
-                </h3>
+
                 {% endif %}
 
                 <!--/row-->
-                <div class="row my-5 mx-auto">
+                <div class="row my-4 mx-auto">
                     <div class="offset-md-3"></div>
                     <div class="col-md-7">
                         <form class="form-inline my-2 my-lg-0" method="post">
@@ -76,53 +82,54 @@
                     </div>
                 </div>
 
-
-                <table class="table">
-                    <thead class="alert btn-info">
-                    <tr>
-                        <th scope="col">SN</th>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Semester</th>
-                        <th scope="col">Section</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Token No</th>
-                        {#                        <th scope="col">Tshirt</th>#}
-                        <th scope="col" class="text-center mx-auto">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for student in students %}
+                {% if students %}
+                    <table class="table">
+                        <thead class="alert btn-info">
                         <tr>
-                            <td>{{ student.id }}</td>
-                            <td>{{ student.sID }}</td>
-                            <td>{{ student.name }}</td>
-
-                            <td>{{ student.semester }}</td>
-                            <td>{{ student.section }}</td>
-                            <td>{{ student.status }}</td>
-                            {% if student.status == 'Not_Registered' %}
-                                <td>----</td>
-                                <td class="text-center mx-auto">
-                                    <a href="/register/{{ student.id }}" class="btn  btn-success  ">Register</a>
-
-                                </td>
-                            {% else %}
-                                <td>{{ student.token }}</td>
-                                {#                                <td>{{ student.t_shirt }}</td>#}
-                                <td class="text-center mx-auto">
-                                    <a href="/register/{{ student.id }}" class="btn btn-warning ">Update Info</a>
-                                    {% if user.is_superuser == 0 %}
-                                        <a href="/request/{{ student.id }}" class="btn  btn-danger  ">Cancel
-                                            Registration</a>
-                                    {% endif %}
-                                </td>
-                            {% endif %}
-
+                            <th scope="col">SN</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Semester</th>
+                            <th scope="col">Section</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Token No</th>
+                            {#                        <th scope="col">Tshirt</th>#}
+                            <th scope="col" class="text-center mx-auto">Action</th>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        {% for student in students %}
+                            <tr>
+                                <td>{{ student.id }}</td>
+                                <td>{{ student.sID }}</td>
+                                <td>{{ student.name }}</td>
+
+                                <td>{{ student.semester }}</td>
+                                <td>{{ student.section }}</td>
+                                <td>{{ student.status }}</td>
+                                {% if student.status == 'Not_Registered' %}
+                                    <td>----</td>
+                                    <td class="text-center mx-auto">
+                                        <a href="/register/{{ student.id }}" class="btn  btn-success  ">Register</a>
+
+                                    </td>
+                                {% else %}
+                                    <td>{{ student.token }}</td>
+                                    {#                                <td>{{ student.t_shirt }}</td>#}
+                                    <td class="text-center mx-auto">
+                                        <a href="/register/{{ student.id }}" class="btn btn-warning ">Update Info</a>
+                                        {% if user.is_superuser == 0 %}
+                                            <a href="/request/{{ student.id }}" class="btn  btn-danger  ">Cancel
+                                                Registration</a>
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
             </div>
         </div>
     </div>
