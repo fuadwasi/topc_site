@@ -84,7 +84,7 @@ def login(request):
             if user is not None:
                 auth_login(request, user)
                 # messages.success(request, "Login Successful")
-                if get_user.is_superuser:
+                if get_user.is_staff:
                     return redirect('dashboard')
                 else:
                     return redirect("ush")
