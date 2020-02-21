@@ -173,12 +173,16 @@ def users(request):
                 all_user = User.objects.all()
         elif request.method == "POST":
             username = request.POST['search']
-            if request.user.is_staff:
-                level = 2
-                all_user = User.objects.filter(Q(is_superuser__exact=0) & Q(username=username))
+            # return HttpResponse(username)
+
             if request.user.is_superuser:
                 level = 3
-                all_user = User.objects.filter(Q(username=username))
+                all_user = User.objects.filter(Q(username__contains=username))
+            elif request.user.is_staff:
+                level = 2
+                all_user = User.objects.filter(Q(is_superuser=0) & Q(username__contains=username))
+            else:
+                return redirect('ush')
         context = {'students': all_user, 'level': level, 'user': request.user, 'request_count': request_count}
         return render(request, 'users.html', context)
     else:
