@@ -29,9 +29,11 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Username</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Is_Admin</th>
                     {% if level == 3 %}
-                    <th scope="col">Is_SuperAdmin</th>
+                        <th scope="col">Is_SuperAdmin</th>
                     {% endif %}
                     <th scope="col" class="text-center mx-auto">Action</th>
                 </tr>
@@ -42,9 +44,11 @@
 
                         <td>{{ student.id }}</td>
                         <td>{{ student.username }}</td>
+                        <td>{{ student.first_name }}</td>
+                        <td>{{ student.last_name }}</td>
                         <td>{{ student.is_staff }}</td>
                         {% if level == 3 %}
-                         <td>{{ student.is_superuser }}</td>
+                            <td>{{ student.is_superuser }}</td>
                         {% endif %}
 
                         <td class="text-center mx-auto">
@@ -62,5 +66,5 @@
             </table>
         </div>
     </div>
-</div>
+    </div>
 {% endblock %}

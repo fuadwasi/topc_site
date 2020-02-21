@@ -182,10 +182,10 @@ def users(request):
 
             if request.user.is_superuser:
                 level = 3
-                all_user = User.objects.filter(Q(username__contains=username)|Q(first_name__contains=username))
+                all_user = User.objects.filter(Q(username__contains=username)|Q(first_name__contains=username)|Q(last_name__contains=username))
             elif request.user.is_staff:
                 level = 2
-                all_user = User.objects.filter(Q(is_superuser=0) & (Q(username__contains=username)|Q(first_name__contains=username)))
+                all_user = User.objects.filter(Q(is_superuser=0) & (Q(username__contains=username)|Q(first_name__contains=username)|Q(last_name__contains=username)))
             else:
                 return redirect('ush')
         if all_user:
