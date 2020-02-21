@@ -12,9 +12,7 @@ from django.utils import timezone
 from datetime import datetime
 from django.db.models.functions import Now
 
-
-
-
+from TOPC_Reg_SYS.views import email_conf_send
 
 
 def pass_reset(request, id):
@@ -57,6 +55,17 @@ def pass_reset(request, id):
                         else:
                             admin.set_password(password)
                             admin.save()
+
+                            email_body = 'Dear ' + admin.first_name + ',\n\nYour password has been changed successfully.'
+                            email_body += 'Your account details:\n\n'
+                            email_body += '\nName: ' + admin.first_name
+                            email_body += '\nUsername: ' + admin.username
+                            email_body += '\nPassword: ' + password
+                            email_body += '\n\n\nThanks for being with us.\n\n\n With best regurds\nDIUCPC'
+                            email_subject = "TOPC Spring 2020 Registration Confirmation"
+                            email_conf_send.email_send([admin.email, 'fuad15-9400@diu.edu.bd'], email_subject,
+                                                       email_body)
+
                             messages.success(request, "Password Change Successfully")
                             return redirect('users')
                     else:

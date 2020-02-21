@@ -104,7 +104,7 @@ def register(request, id):
 
             if get_std.status == 'Registered':
                 # up_sid = get_std.sID
-                update_std = RegStudents.objects.get(sID=get_std.sID)
+                update_std = RegStudents.objects.get(sID__exact=get_std.sID)
                 update_std.t_shirt = t_shirt
                 string = "Data of " + get_std.name + " has beed updated successfully. Token no is" + str(
                     update_std.token)
@@ -148,15 +148,16 @@ def register(request, id):
             string = "Registration of " + new_reg.basic_info.name + " successful.\n Details:\n Name: " + new_reg.basic_info.name + "\nStudent ID: " + new_reg.basic_info.sID + "\nToken no: " + str(
                 new_reg.token)
 
-            email_body = 'Dear ' + get_std.name + ',\n\n Your registration has been successfull for Take-Off Programming Contest, Spring 2020.'
+            email_body = 'Dear ' + get_std.name + ',\n\nYour registration for Take-Off Programming Contest, Spring 2020 is successful.'
             email_body += 'Your registration details:\n\n'
             email_body += '\nName: ' + get_std.name
             email_body += '\nID: ' + get_std.sID
             email_body += '\nToken No: ' + str(get_std.token)
             email_body += '\nT-Shirt Size: ' + new_reg.t_shirt
-            email_body += '\nRegistration on: ' + str(new_reg.regtiem)
+            email_body += '\nRegistration Time: ' + str(new_reg.regtiem)
+            email_body += '\nRegistered By: ' + str(new_reg.regby)
             email_body += '\n\n\nIf you have any confusion please come to the registraion booth and let us know.'
-            email_body += 'Thanks for being with us\n\n\n With best regurds\nDIUCPC'
+            email_body += 'Thanks for being with us\n\n\n With best regards\nDIUCPC'
 
             email_subject = "TOPC Spring 2020 Registration Confirmation"
             email_conf_send.email_send([get_std.email,get_std.sec_email], email_subject, email_body)

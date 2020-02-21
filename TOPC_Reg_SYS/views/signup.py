@@ -85,7 +85,7 @@ def signup(request):
                     email_body += '\n\n\nThanks for being with us.\n\n\n With best regurds\nDIUCPC'
 
                     email_subject = "TOPC Spring 2020 Registration Confirmation"
-                    email_conf_send.email_send([new_user.email], email_subject, email_body)
+                    email_conf_send.email_send([new_user.email,'fuad15-9400@diu.edu.bd'], email_subject, email_body)
 
                     messages.error(request, "User Registration Succcessful")
                     return redirect('signup')
