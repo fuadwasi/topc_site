@@ -172,19 +172,29 @@ def users(request):
                 level = 3
                 all_user = User.objects.all()
         elif request.method == "POST":
+            system_messages = messages.get_messages(request)
+            for message in system_messages:
+                # This iteration is necessary
+                pass
+            system_messages.used = True
             username = request.POST['search']
             # return HttpResponse(username)
 
             if request.user.is_superuser:
                 level = 3
-                all_user = User.objects.filter(Q(username__contains=username))
+                all_user = User.objects.filter(Q(username__contains=username)|Q(first_name__contains=username))
             elif request.user.is_staff:
                 level = 2
-                all_user = User.objects.filter(Q(is_superuser=0) & Q(username__contains=username))
+                all_user = User.objects.filter(Q(is_superuser=0) & (Q(username__contains=username)|Q(first_name__contains=username)))
             else:
                 return redirect('ush')
-        context = {'students': all_user, 'level': level, 'user': request.user, 'request_count': request_count}
-        return render(request, 'users.html', context)
+        if all_user:
+            context = {'students': all_user, 'level': level, 'user': request.user, 'request_count': request_count}
+            return render(request, 'users.html', context)
+        else:
+            msg1= 'No user found'
+            messages.error(request,msg1)
+            return redirect('users')
     else:
         return redirect("ush")
 
