@@ -9,3 +9,4 @@ from .cancel_reg import *
 from .email_conf_send import *
 from .rank_upload import *
 from .csv_writer_fun import *
+from .seatplan import *

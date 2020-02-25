@@ -13,6 +13,9 @@ urlpatterns = [
                   path('ush/', views.ush, name="ush"),
                   path('signup/', views.signup, name="signup"),
 
+                 path('gen_seat_plan/', views.gen_seat_plan, name="gen_seat_plan"),
+
+
                   path('users/', views.users, name="users"),
                   path('r_set/<int:id>', views.pass_reset, name='r_set'),
                   path('delete_user/<int:id>', views.delete_user, name='delete_user'),
@@ -30,4 +33,5 @@ urlpatterns = [
                   path('del_all_reg/', views.del_all_reg, name='del_all_reg'),
                   path('del_all_std/', views.del_all_std, name='del_all_std'),
                   path('reg_std_full_download/', views.reg_std_full_download, name='reg_std_full_download'),
+                  # path('seatplan/', views.seatplan, name='seatplan'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

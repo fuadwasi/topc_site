@@ -40,6 +40,8 @@ class RegStudents(models.Model):
     regtiem = models.DateTimeField(auto_now_add=True)
     basic_info = models.OneToOneField(ALLStudents, on_delete=models.CASCADE)
 
+    def pr_data(self):
+        return self.basic_info.name+' '+self.sID
 
     class Mate:
         db_table = "reg_students"

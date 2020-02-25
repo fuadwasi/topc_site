@@ -14,6 +14,7 @@ import string
 from django.utils import timezone
 from datetime import datetime
 from django.db.models.functions import Now
+from django.conf import settings
 
 from TOPC_Reg_SYS.models import ALLStudents, RegStudents
 from . import email_conf_send
@@ -77,8 +78,11 @@ def register(request, id):
                 # This iteration is necessary
                 pass
             system_messages.used = True
-
+            reg_std_count = RegStudents.objects.all().count()
             get_std = ALLStudents.objects.get(id=id)
+            if reg_std_count >= settings.SEAT_COUNT :
+                messages.error(request,'All the seat has been filled up. Better luck next time')
+                return redirect('ush')
 
             # if get_std.status!="Not_Registered":
             #     string = "User already registered."
