@@ -94,6 +94,11 @@ def upload_data(request):
                         update_std.gender = column[7]
                         update_std.phone = column[8]
                         update_std.email = column[9]
+                        if update_std.department != "CSE":
+                            update_std.section =  column[2]+'('+str(column[5])+')'
+
+
+
                         update_std.save()
                     else:
 
@@ -103,14 +108,17 @@ def upload_data(request):
                             department = column[2],
                             campus	= column[3],
                             semester= column[4],
-                            section = column[5],
+                            section = str(column[5]),
                             shift	= column[6],
                             gender	= column[7],
                             phone	= column[8],
                             email 	= column[9]
                              )
                         if new_std.department != "CSE":
-                            new_std.section = department + '(' + section + ')'
+                            new_std.section =  column[2]+'('+str(column[5])+')'
+
+
+
                         new_std.save()
 
                 messages.success(request, "Data updated successfully")
