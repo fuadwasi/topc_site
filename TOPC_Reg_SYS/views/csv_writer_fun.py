@@ -52,7 +52,7 @@ def reg_std_full_download(request):
         writer = csv.writer(response, delimiter=',')
         writer.writerow(
             ['Token NO', 'ID', 'Name','Gender','Semester', 'Section', 'Department', 'Campus', 'Phone', 'Secondary_Phone',
-             'Email', 'Secondary_Email', 'Room No', 'Pc', 'T_shirt','User_info' 'Username', 'Password'])
+             'Email', 'Secondary_Email', 'Room No', 'Pc', 'T_shirt','User_info' ,'Username', 'Password'])
         for obj in students:
             writer.writerow([obj.token, obj.sID, obj.basic_info.name,obj.basic_info.gender, obj.basic_info.section,
                              obj.basic_info.semester, obj.basic_info.department, obj.basic_info.campus,
