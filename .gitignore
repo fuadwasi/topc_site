@@ -25,3 +25,4 @@ yarn-error.log*
 TOPC_Reg_SYS/migrations/__pycache__/
 TOPC_Reg_SYS/views/__pycache__
 TOPC_Reg_SYS/__pycache__/
+venv
